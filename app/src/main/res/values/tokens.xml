@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="indent.xxxxs">4dp</dimen>
+    <dimen name="indent.xxxs">8dp</dimen>
+    <dimen name="indent.xxs">12dp</dimen>
+    <dimen name="indent.xs">16dp</dimen>
+    <dimen name="indent.s">20dp</dimen>
+    <dimen name="indent.sm">24dp</dimen>
+    <dimen name="indent.m">32dp</dimen>
+    <dimen name="indent.l">40dp</dimen>
+    <dimen name="indent.xl">48dp</dimen>
+    <dimen name="indent.xxl">56dp</dimen>
+    <dimen name="indent.xxxl">64dp</dimen>
+
+    <dimen name="text.main.s">18sp</dimen>
+    <dimen name="text.main.m">22sp</dimen>
+    <dimen name="text.main.l">28sp</dimen>
+
+    <dimen name="text.additional.s">14sp</dimen>
+    <dimen name="text.additional.m">16sp</dimen>
+    <dimen name="text.additional.l">18sp</dimen>
+</resources>

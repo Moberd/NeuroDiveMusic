@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    background-->
+    <color name="background_primary">@color/carbone</color>
+    <color name="app_background">@color/primary_black</color>
+
+    <!--    text-->
+    <color name="text_primary">@color/white</color>
+
+    <!--    button-->
+    <color name="button_background">@color/carbone</color>
+
+    <!--    icons-->
+    <color name="icon_primary">@color/aluminium</color>
+
+    <!--    border-->
+    <color name="border_primary">@color/aluminium</color>
+</resources>

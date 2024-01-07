@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main.description.history_button">Open history</string>
+    <string name="main.description.cover_image">Cover</string>
+    <string name="main.description.prev_button">Previous track</string>
+    <string name="main.description.toggle_play_button">Play/Pause</string>
+    <string name="main.description.next_button">Next track</string>
+    <string name="main.description.open_track_info_icon">Open info</string>
+
+    <string name="main.label.player">Player</string>
+    <string name="main.label.history">Listening history</string>
+    <string name="main.label.track_info">Track info</string>
+    <string name="main.label.calibration">Сalibration</string>
+
+    <string name="main.track_info.text.placeholder">Information about track with id %s</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="calibration.text.calibrate_button">Calibrate</string>
+    <string name="calibration.text.calibration_status">Calibration</string>
+
+    <string name="calibration.description.logo">Logo</string>
+
+    <string name="calibration.label.tracker_selection">Tracker selection</string>
+    <string name="calibration.label.calibrating">Calibration</string>
+</resources>
