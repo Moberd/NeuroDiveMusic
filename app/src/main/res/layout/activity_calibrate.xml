@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    android:orientation="vertical">
+    tools:context=".ui.calibrate.CalibrateActivity">
 
-    <ImageButton
-        android:id="@+id/calib_back"
-        android:background="@null"
-        android:layout_width="60sp"
-        android:layout_height="60sp"
-        android:src="@drawable/baseline_arrow_back_48"/>
-
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:paddingTop="350sp"
-        android:paddingHorizontal="50sp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:indeterminate="true" />
-
-    <TextView
-        android:layout_gravity="center"
-        android:textColor="@color/text_white"
-        android:textSize="30sp"
-        android:text="CALIBRATING..."
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/calibration_navigation" />
 </LinearLayout>

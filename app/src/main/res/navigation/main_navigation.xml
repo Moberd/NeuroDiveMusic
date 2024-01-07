@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/test_navigation"
+    app:startDestination="@id/mainNavigation_playerFragment">
+
+    <fragment
+        android:id="@+id/mainNavigation_playerFragment"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.main.PlayerFragment"
+        android:label="@string/main.label.player"
+        tools:layout="@layout/fragment_player">
+        <action
+            android:id="@+id/action_playerFragment_to_tracksHistoryFragment"
+            app:destination="@id/mainNavigation_tracksHistoryFragment" />
+        <action
+            android:id="@+id/action_playerFragment_to_calibrateActivity"
+            app:destination="@id/mainNavigation_calibrateActivity" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainNavigation_tracksHistoryFragment"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.main.TracksHistoryFragment"
+        android:label="@string/main.label.history"
+        tools:layout="@layout/fragment_tracks_histroty">
+        <action
+            android:id="@+id/action_tracksHistoryFragment_to_trackInfoFragment"
+            app:destination="@id/mainNavigation_trackInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainNavigation_trackInfoFragment"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.main.TrackInfoFragment"
+        android:label="@string/main.label.track_info"
+        tools:layout="@layout/fragment_track_info">
+        <argument
+            android:name="trackId"
+            app:argType="string" />
+    </fragment>
+    <activity
+        android:id="@+id/mainNavigation_calibrateActivity"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.calibrate.CalibrateActivity"
+        android:label="@string/main.label.calibration"
+        tools:layout="@layout/activity_calibrate" />
+</navigation>

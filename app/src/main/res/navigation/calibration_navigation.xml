@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calibration_navigation"
+    app:startDestination="@id/calibrationNavigation_trackerSelectFragment">
+
+    <fragment
+        android:id="@+id/calibrationNavigation_trackerSelectFragment"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.calibrate.TrackerSelectFragment"
+        android:label="@string/calibration.label.tracker_selection"
+        tools:layout="@layout/fragment_tracker_select" >
+        <action
+            android:id="@+id/action_trackerSelectFragment_to_calibrationFragment"
+            app:destination="@id/calibrationNavigation_calibrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/calibrationNavigation_calibrationFragment"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.calibrate.CalibrationFragment"
+        android:label="@string/calibration.label.calibrating"
+        tools:layout="@layout/fragment_calibration" />
+</navigation>

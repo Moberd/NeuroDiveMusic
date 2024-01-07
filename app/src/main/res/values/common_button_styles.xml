@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.NeuroDiveMusic.Button" parent="Widget.Material3.Button">
+        <item name="android:backgroundTint">@color/button_background</item>
+        <item name="android:textColor">@color/text_static_white</item>
+    </style>
+</resources>
