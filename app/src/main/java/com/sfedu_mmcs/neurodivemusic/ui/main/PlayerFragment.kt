@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.sfedu_mmcs.neurodivemusic.R
@@ -26,6 +27,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 class PlayerFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBinding
     private lateinit var navController: NavController
+
     private val musicModel: MusicViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,10 +56,15 @@ class PlayerFragment : Fragment() {
                 youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         // When the YouTube player is ready, load the video specified by currentTrack
-                        musicModel.currentTrack.observe(viewLifecycleOwner) { trackData ->
-                            if (trackData !is TrackData) return@observe
-                            youTubePlayer.loadVideo(trackData.videoId, 0f)
-                            youTubePlayer.play()
+                        musicModel.currentTrack.observe(viewLifecycleOwner) {
+                            if (it !is TrackData) return@observe
+                            youTubePlayer.loadVideo(it.videoId, 0f)
+                            setPlay()
+                        }
+                        musicModel.status.observe(viewLifecycleOwner) {
+                            if (it !is PlayStatus) return@observe
+                            if (it == PlayStatus.Pause) youTubePlayer.pause()
+                            else youTubePlayer.play()
                         }
                     }
                 })
@@ -74,13 +81,15 @@ class PlayerFragment : Fragment() {
                     )
 
                     binding.trackInfo.text = spanned
+
                     // TODO retrieve when yt audio player's ready
                     // trackCover.setImageDrawable(it.cover)
+
                 }
 
-                status.observe(activity as LifecycleOwner) {
-                    val resource =
-                        if (it == PlayStatus.Play) PlayPauseResources.Play else PlayPauseResources.Pause
+                status.observe(viewLifecycleOwner) {
+                    if (it !is PlayStatus) return@observe
+                    val resource = if (it == PlayStatus.Play) PlayPauseResources.Pause else PlayPauseResources.Play
                     togglePlay.setImageResource(resource)
                 }
 

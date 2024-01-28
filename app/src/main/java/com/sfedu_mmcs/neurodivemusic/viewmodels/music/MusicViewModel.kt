@@ -106,6 +106,14 @@ class MusicViewModel : ViewModel() {
         status.value = if (status.value == PlayStatus.Play) PlayStatus.Pause else PlayStatus.Play
     }
 
+    fun setPlay() {
+        status.value = PlayStatus.Play
+    }
+
+    fun setPause() {
+        status.value = PlayStatus.Pause
+    }
+
     init {
         currentTrack.value = trackMocks[index]
     }
