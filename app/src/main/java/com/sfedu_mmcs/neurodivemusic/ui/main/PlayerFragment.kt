@@ -11,9 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
@@ -91,9 +91,11 @@ class PlayerFragment : Fragment() {
 
                     binding.trackInfo.text = spanned
 
-                    // TODO retrieve when yt audio player's ready
-                    // trackCover.setImageDrawable(it.cover)
+                    val thumbnailUrl = "https://img.youtube.com/vi/${it.videoId}/0.jpg"
 
+                    Glide.with(requireContext())
+                        .load(thumbnailUrl)
+                        .into(binding.trackCover)
                 }
 
                 status.observe(viewLifecycleOwner) {
