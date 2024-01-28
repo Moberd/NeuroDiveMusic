@@ -18,6 +18,10 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentPlayerBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+
 
 class PlayerFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBinding
@@ -39,10 +43,25 @@ class PlayerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val youTubePlayerView: YouTubePlayerView = view.findViewById(R.id.youtubePlayerView)
+        lifecycle.addObserver(youTubePlayerView)
+
         navController = findNavController()
 
         with(binding) {
             with(musicModel) {
+
+                youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        // When the YouTube player is ready, load the video specified by currentTrack
+                        musicModel.currentTrack.observe(viewLifecycleOwner) { trackData ->
+                            if (trackData !is TrackData) return@observe
+                            youTubePlayer.loadVideo(trackData.videoId, 0f)
+                            youTubePlayer.play()
+                        }
+                    }
+                })
+
                 currentTrack.observe(activity as LifecycleOwner) {
                     if (it !is TrackData) return@observe
 
@@ -54,9 +73,9 @@ class PlayerFragment : Fragment() {
                         Spannable.SPAN_INCLUSIVE_EXCLUSIVE
                     )
 
-                    trackInfo.text = spanned
-                    trackCover.setImageDrawable(it.cover)
-
+                    binding.trackInfo.text = spanned
+                    // TODO retrieve when yt audio player's ready
+                    // trackCover.setImageDrawable(it.cover)
                 }
 
                 status.observe(activity as LifecycleOwner) {
