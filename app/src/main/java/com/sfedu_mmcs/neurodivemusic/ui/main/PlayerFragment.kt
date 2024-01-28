@@ -47,13 +47,13 @@ class PlayerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val youTubePlayerView: YouTubePlayerView = view.findViewById(R.id.youtubePlayerView)
+
         lifecycle.addObserver(youTubePlayerView)
 
         navController = findNavController()
 
         with(binding) {
             with(musicModel) {
-
                 youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         // When the YouTube player is ready, load the video specified by currentTrack
@@ -67,6 +67,7 @@ class PlayerFragment : Fragment() {
                             if (it == PlayStatus.Pause) youTubePlayer.pause()
                             else youTubePlayer.play()
                         }
+                        binding.youtubePlayerView.visibility = View.GONE
                     }
                     override fun onStateChange(
                         youTubePlayer: YouTubePlayer,
