@@ -14,6 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
@@ -66,6 +67,13 @@ class PlayerFragment : Fragment() {
                             if (it == PlayStatus.Pause) youTubePlayer.pause()
                             else youTubePlayer.play()
                         }
+                    }
+                    override fun onStateChange(
+                        youTubePlayer: YouTubePlayer,
+                        state: PlayerConstants.PlayerState
+                    ) {
+                        super.onStateChange(youTubePlayer, state)
+                        if (state == PlayerConstants.PlayerState.ENDED) musicModel.next()
                     }
                 })
 
