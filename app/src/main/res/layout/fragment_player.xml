@@ -32,18 +32,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/logo"
                 />
-            <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                android:id="@+id/youtubePlayerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/main.description.cover_image"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-            />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

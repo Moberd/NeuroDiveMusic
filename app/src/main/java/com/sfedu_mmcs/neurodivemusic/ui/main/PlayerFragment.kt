@@ -14,14 +14,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentPlayerBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 
 class PlayerFragment : Fragment() {
@@ -48,33 +45,7 @@ class PlayerFragment : Fragment() {
         navController = findNavController()
 
         with(binding) {
-            lifecycle.addObserver(binding.youtubePlayerView)
-
             with(musicModel) {
-                binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                    override fun onReady(youTubePlayer: YouTubePlayer) {
-                        // When the YouTube player is ready, load the video specified by currentTrack
-                        musicModel.currentTrack.observe(viewLifecycleOwner) {
-                            if (it !is TrackData) return@observe
-                            youTubePlayer.loadVideo(it.id, 0f)
-                            setPlay()
-                        }
-                        musicModel.status.observe(viewLifecycleOwner) {
-                            if (it !is PlayStatus) return@observe
-                            if (it == PlayStatus.Pause) youTubePlayer.pause()
-                            else youTubePlayer.play()
-                        }
-                        binding.youtubePlayerView.visibility = View.GONE
-                    }
-                    override fun onStateChange(
-                        youTubePlayer: YouTubePlayer,
-                        state: PlayerConstants.PlayerState
-                    ) {
-                        super.onStateChange(youTubePlayer, state)
-                        if (state == PlayerConstants.PlayerState.ENDED) musicModel.next()
-                    }
-                })
-
                 currentTrack.observe(activity as LifecycleOwner) {
                     if (it !is TrackData) return@observe
 
@@ -86,13 +57,13 @@ class PlayerFragment : Fragment() {
                         Spannable.SPAN_INCLUSIVE_EXCLUSIVE
                     )
 
-                    binding.trackInfo.text = spanned
+                    trackInfo.text = spanned
 
                     val thumbnailUrl = "https://img.youtube.com/vi/${it.id}/0.jpg"
 
                     Glide.with(requireContext())
                         .load(thumbnailUrl)
-                        .into(binding.trackCover)
+                        .into(trackCover)
                 }
 
                 status.observe(viewLifecycleOwner) {
