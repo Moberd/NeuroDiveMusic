@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable
 
 data class TrackData(
     val id: String,
-    val videoId: String,
     val artist: String,
     val name: String,
     val duration: Number,

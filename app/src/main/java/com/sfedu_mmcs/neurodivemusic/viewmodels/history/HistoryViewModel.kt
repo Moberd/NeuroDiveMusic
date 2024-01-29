@@ -15,24 +15,21 @@ class HistoryViewModel : ViewModel() {
         Handler(Looper.getMainLooper()).postDelayed({
             historyList.value = listOf<TrackData>(
                 TrackData(
-                    id="5",
-                    videoId="Ic5YEw_QzGs",
+                    id="Ic5YEw_QzGs",
                     artist="Chernikovskaya Hata",
                     name="Нажми на кнопку",
                     duration=10,
                     cover=R.drawable.logo.toDrawable()
                 ),
                 TrackData(
-                    id="6",
-                    videoId="tUBVEKzsZ-k",
+                    id="tUBVEKzsZ-k",
                     artist="Альянс",
                     name="На Заре",
                     duration=10,
                     cover=R.drawable.logo.toDrawable()
                 ),
                 TrackData(
-                    id="7",
-                    videoId="HvZrAOIW5W8",
+                    id="HvZrAOIW5W8",
                     artist="Смысловые Галлюцинации",
                     name="Вечно молодой",
                     duration=10,
