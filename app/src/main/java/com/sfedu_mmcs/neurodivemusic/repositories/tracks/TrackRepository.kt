@@ -7,6 +7,10 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+
+val mockCover = "https://media.istockphoto.com/id/90687399/photo/garden-creatures-5.webp?s=1024x1024&w=is&k=20&c=XPActJq99uS6TTGOar_h1rDWUcuqNNxjYXYTL0B3ALY="
 
 val trackMocks = listOf<TrackData>(
     TrackData(
@@ -14,53 +18,53 @@ val trackMocks = listOf<TrackData>(
         artist="Альянс",
         name="На Заре",
         duration=10,
-        cover= R.drawable.logo.toDrawable()
+        cover=mockCover
     ),
     TrackData(
         id="HvZrAOIW5W8",
         artist="Смысловые Галлюцинации",
         name="Вечно молодой",
         duration=10,
-        cover= R.drawable.logo.toDrawable()
+        cover=mockCover
     ),
     TrackData(
         id="L7LTe7LbKT0",
         artist="Chernikovskaya Hata",
         name="Белая ночь",
         duration=10,
-        cover= R.drawable.logo.toDrawable()
+        cover=mockCover
     ),
     TrackData(
         id="1M_k7b1cAxM",
         artist="Chernikovskaya Hata",
         name="Ты не верь слезам",
         duration=10,
-        cover= R.drawable.logo.toDrawable()
+        cover=mockCover
     ),
     TrackData(
         id="vtYiwVpf9Mo",
         artist="Chernikovskaya Hata",
         name="Мальчик мой",
         duration=10,
-        cover= R.drawable.logo.toDrawable()
+        cover=mockCover
     ),
     TrackData(
         id="1qGbAm5kYyM",
         artist="Chernikovskaya Hata",
         name="Ночное рандеву",
         duration=10,
-        cover= R.drawable.logo.toDrawable()
+        cover=mockCover
     ),
     TrackData(
         id="Ic5YEw_QzGs",
         artist="Chernikovskaya Hata",
         name="Нажми на кнопку",
         duration=10,
-        cover= R.drawable.logo.toDrawable()
+        cover=mockCover
     ),
 )
 
-class TrackRepository(private val context: Context) {
+class TrackRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences("TrackPreferences", Context.MODE_PRIVATE)
