@@ -4,18 +4,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.ActivityMainBinding
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private val trackerViewModel: TrackerViewModel by viewModels()
+    private val musicModel: MusicViewModel by viewModels()
+
     lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +58,40 @@ class MainActivity : AppCompatActivity() {
             if (it) return@observe
             val action = PlayerFragmentDirections.actionPlayerFragmentToCalibrateActivity()
             navController.navigate(action)
+        }
+
+        setupYouTubePlayer()
+    }
+
+    private fun setupYouTubePlayer() {
+        with(binding) {
+            lifecycle.addObserver(youtubePlayerView)
+            with(musicModel) {
+                youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                    override fun onReady(youTubePlayer: YouTubePlayer) {
+                        // When the YouTube player is ready, load the video specified by currentTrack
+                        currentTrack.observe(this@MainActivity) {
+                            if (it !is TrackData) return@observe
+                            youTubePlayer.loadVideo(it.id, 0f)
+                            musicModel.setPlay()
+                        }
+                        status.observe(this@MainActivity) {
+                            if (it !is PlayStatus) return@observe
+                            if (it == PlayStatus.Pause) youTubePlayer.pause()
+                            else youTubePlayer.play()
+                        }
+                        youtubePlayerView.visibility = View.GONE
+                    }
+
+                    override fun onStateChange(
+                        youTubePlayer: YouTubePlayer,
+                        state: PlayerConstants.PlayerState
+                    ) {
+                        super.onStateChange(youTubePlayer, state)
+                        if (state == PlayerConstants.PlayerState.ENDED) musicModel.next()
+                    }
+                })
+            }
         }
     }
 

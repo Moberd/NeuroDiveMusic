@@ -15,27 +15,27 @@ class HistoryViewModel : ViewModel() {
         Handler(Looper.getMainLooper()).postDelayed({
             historyList.value = listOf<TrackData>(
                 TrackData(
-                    "123456",
-                    "first artist",
-                    "some long track name",
-                    10,
-                    R.drawable.logo.toDrawable()
+                    id="Ic5YEw_QzGs",
+                    artist="Chernikovskaya Hata",
+                    name="Нажми на кнопку",
+                    duration=10,
+                    cover=R.drawable.logo.toDrawable()
                 ),
                 TrackData(
-                    "123457",
-                    "second artist",
-                    "some long track name",
-                    10,
-                    R.drawable.button_gradient.toDrawable()
+                    id="tUBVEKzsZ-k",
+                    artist="Альянс",
+                    name="На Заре",
+                    duration=10,
+                    cover=R.drawable.logo.toDrawable()
                 ),
                 TrackData(
-                    "123458",
-                    "third artist",
-                    "some long track name",
-                    10,
-                    R.drawable.logo.toDrawable()
-                )
+                    id="HvZrAOIW5W8",
+                    artist="Смысловые Галлюцинации",
+                    name="Вечно молодой",
+                    duration=10,
+                    cover=R.drawable.logo.toDrawable()
+                ),
             )
-        }, 1500)
+        }, 1000)
     }
 }

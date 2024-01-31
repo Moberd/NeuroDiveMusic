@@ -13,15 +13,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentPlayerBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 
+
 class PlayerFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBinding
     private lateinit var navController: NavController
+
     private val musicModel: MusicViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,13 +58,17 @@ class PlayerFragment : Fragment() {
                     )
 
                     trackInfo.text = spanned
-                    trackCover.setImageDrawable(it.cover)
 
+                    val thumbnailUrl = "https://img.youtube.com/vi/${it.id}/0.jpg"
+
+                    Glide.with(requireContext())
+                        .load(thumbnailUrl)
+                        .into(trackCover)
                 }
 
-                status.observe(activity as LifecycleOwner) {
-                    val resource =
-                        if (it == PlayStatus.Play) PlayPauseResources.Play else PlayPauseResources.Pause
+                status.observe(viewLifecycleOwner) {
+                    if (it !is PlayStatus) return@observe
+                    val resource = if (it == PlayStatus.Play) PlayPauseResources.Pause else PlayPauseResources.Play
                     togglePlay.setImageResource(resource)
                 }
 

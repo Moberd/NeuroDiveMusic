@@ -9,15 +9,55 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 
 val trackMocks = listOf<TrackData>(
-    TrackData("1", "first artist", "some long track name", 10, R.drawable.logo.toDrawable()),
     TrackData(
-        "2",
-        "second artist",
-        "some long track name",
-        10,
-        R.drawable.button_gradient.toDrawable()
+        id="tUBVEKzsZ-k",
+        artist="Альянс",
+        name="На Заре",
+        duration=10,
+        cover=R.drawable.logo.toDrawable()
     ),
-    TrackData("3", "third artist", "some long track name", 10, R.drawable.logo.toDrawable())
+    TrackData(
+        id="HvZrAOIW5W8",
+        artist="Смысловые Галлюцинации",
+        name="Вечно молодой",
+        duration=10,
+        cover=R.drawable.logo.toDrawable()
+    ),
+    TrackData(
+        id="L7LTe7LbKT0",
+        artist="Chernikovskaya Hata",
+        name="Белая ночь",
+        duration=10,
+        cover=R.drawable.logo.toDrawable()
+    ),
+    TrackData(
+        id="1M_k7b1cAxM",
+        artist="Chernikovskaya Hata",
+        name="Ты не верь слезам",
+        duration=10,
+        cover=R.drawable.logo.toDrawable()
+    ),
+    TrackData(
+        id="vtYiwVpf9Mo",
+        artist="Chernikovskaya Hata",
+        name="Мальчик мой",
+        duration=10,
+        cover=R.drawable.logo.toDrawable()
+    ),
+    TrackData(
+        id="1qGbAm5kYyM",
+        artist="Chernikovskaya Hata",
+        name="Ночное рандеву",
+        duration=10,
+        cover=R.drawable.logo.toDrawable()
+    ),
+    TrackData(
+        id="Ic5YEw_QzGs",
+        artist="Chernikovskaya Hata",
+        name="Нажми на кнопку",
+        duration=10,
+        cover=R.drawable.logo.toDrawable()
+    ),
 )
 
 var index = 0
@@ -41,6 +81,14 @@ class MusicViewModel : ViewModel() {
 
     fun togglePlay() {
         status.value = if (status.value == PlayStatus.Play) PlayStatus.Pause else PlayStatus.Play
+    }
+
+    fun setPlay() {
+        status.value = PlayStatus.Play
+    }
+
+    fun setPause() {
+        status.value = PlayStatus.Pause
     }
 
     init {
