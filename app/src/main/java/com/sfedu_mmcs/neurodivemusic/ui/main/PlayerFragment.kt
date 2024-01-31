@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
@@ -64,6 +66,11 @@ class PlayerFragment : Fragment() {
 
                     Glide.with(requireContext())
                         .load(thumbnailUrl)
+                        .apply(
+                            RequestOptions()
+                                .placeholder(R.drawable.logo.toDrawable())
+                                .error(R.drawable.logo.toDrawable())
+                        )
                         .into(trackCover)
                 }
 

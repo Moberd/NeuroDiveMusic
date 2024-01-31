@@ -10,7 +10,7 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-val mockCover = "https://media.istockphoto.com/id/90687399/photo/garden-creatures-5.webp?s=1024x1024&w=is&k=20&c=XPActJq99uS6TTGOar_h1rDWUcuqNNxjYXYTL0B3ALY="
+val mockCover = "https://memoteka.com/images/thumb/9/99/%D0%9F%D0%B5%D0%BF%D0%B50.jpg/300px-%D0%9F%D0%B5%D0%BF%D0%B50.jpg"
 
 val trackMocks = listOf<TrackData>(
     TrackData(
