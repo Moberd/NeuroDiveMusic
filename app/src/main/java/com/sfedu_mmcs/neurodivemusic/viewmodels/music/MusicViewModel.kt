@@ -1,68 +1,19 @@
 package com.sfedu_mmcs.neurodivemusic.viewmodels.music
 
-import android.util.Log
-import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.repositories.tracks.TrackRepository
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 
-val trackMocks = listOf<TrackData>(
-    TrackData(
-        id="tUBVEKzsZ-k",
-        artist="Альянс",
-        name="На Заре",
-        duration=10,
-        cover=R.drawable.logo.toDrawable()
-    ),
-    TrackData(
-        id="HvZrAOIW5W8",
-        artist="Смысловые Галлюцинации",
-        name="Вечно молодой",
-        duration=10,
-        cover=R.drawable.logo.toDrawable()
-    ),
-    TrackData(
-        id="L7LTe7LbKT0",
-        artist="Chernikovskaya Hata",
-        name="Белая ночь",
-        duration=10,
-        cover=R.drawable.logo.toDrawable()
-    ),
-    TrackData(
-        id="1M_k7b1cAxM",
-        artist="Chernikovskaya Hata",
-        name="Ты не верь слезам",
-        duration=10,
-        cover=R.drawable.logo.toDrawable()
-    ),
-    TrackData(
-        id="vtYiwVpf9Mo",
-        artist="Chernikovskaya Hata",
-        name="Мальчик мой",
-        duration=10,
-        cover=R.drawable.logo.toDrawable()
-    ),
-    TrackData(
-        id="1qGbAm5kYyM",
-        artist="Chernikovskaya Hata",
-        name="Ночное рандеву",
-        duration=10,
-        cover=R.drawable.logo.toDrawable()
-    ),
-    TrackData(
-        id="Ic5YEw_QzGs",
-        artist="Chernikovskaya Hata",
-        name="Нажми на кнопку",
-        duration=10,
-        cover=R.drawable.logo.toDrawable()
-    ),
-)
-
 var index = 0
 
-class MusicViewModel : ViewModel() {
+class MusicViewModel(private val trackRepository: TrackRepository = TrackRepository( /*TODO: di*/ )) : ViewModel() {
+
+    val trackQueue: MutableLiveData<MutableList<TrackData>> by lazy {
+        MutableLiveData<MutableList<TrackData>>(mutableListOf())
+    }
+
     val currentTrack: MutableLiveData<TrackData?> by lazy {
         MutableLiveData<TrackData?>(null)
     }
@@ -70,13 +21,19 @@ class MusicViewModel : ViewModel() {
     val status: MutableLiveData<PlayStatus> = MutableLiveData(PlayStatus.Pause)
 
     fun next() {
-        index = (index + 1) % trackMocks.size
-        currentTrack.value = trackMocks[index]
+        // index = (index + 1) % queue.value.size
+        // currentTrack.value = queue[index]
+        if (trackQueue.value?.isEmpty() == true) return;
+        index = (index + 1) % trackQueue.value!!.size
+        currentTrack.value = trackQueue.value!![index]
     }
 
     fun prev() {
-        index = (index + trackMocks.size - 1) % trackMocks.size
-        currentTrack.value = trackMocks[index]
+        // index = (index + queue.size - 1) % queue.size
+        // currentTrack.value = queue[index]
+        if (trackQueue.value?.isEmpty() == true) return
+        index = (index + trackQueue.value!!.size - 1) % trackQueue.value!!.size
+        currentTrack.value =  trackQueue.value!![index]
     }
 
     fun togglePlay() {
@@ -92,6 +49,7 @@ class MusicViewModel : ViewModel() {
     }
 
     init {
-        currentTrack.value = trackMocks[index]
+        trackQueue.value = trackRepository.getEntities().toMutableList()
+        currentTrack.value = trackQueue.value!![index]
     }
 }
