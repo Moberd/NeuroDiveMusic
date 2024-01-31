@@ -5,11 +5,15 @@ import androidx.lifecycle.ViewModel
 import com.sfedu_mmcs.neurodivemusic.repositories.tracks.TrackRepository
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 var index = 0
 
-class MusicViewModel(private val trackRepository: TrackRepository = TrackRepository( /*TODO: di*/ )) : ViewModel() {
-
+@HiltViewModel
+class MusicViewModel @Inject constructor(
+        private val trackRepository: TrackRepository
+) : ViewModel() {
     val trackQueue: MutableLiveData<MutableList<TrackData>> by lazy {
         MutableLiveData<MutableList<TrackData>>(mutableListOf())
     }
@@ -21,16 +25,12 @@ class MusicViewModel(private val trackRepository: TrackRepository = TrackReposit
     val status: MutableLiveData<PlayStatus> = MutableLiveData(PlayStatus.Pause)
 
     fun next() {
-        // index = (index + 1) % queue.value.size
-        // currentTrack.value = queue[index]
         if (trackQueue.value?.isEmpty() == true) return;
         index = (index + 1) % trackQueue.value!!.size
         currentTrack.value = trackQueue.value!![index]
     }
 
     fun prev() {
-        // index = (index + queue.size - 1) % queue.size
-        // currentTrack.value = queue[index]
         if (trackQueue.value?.isEmpty() == true) return
         index = (index + trackQueue.value!!.size - 1) % trackQueue.value!!.size
         currentTrack.value =  trackQueue.value!![index]

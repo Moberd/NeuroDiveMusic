@@ -6,6 +6,7 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.repositories.tracks.mockCover
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 
 class HistoryViewModel : ViewModel() {
@@ -19,21 +20,21 @@ class HistoryViewModel : ViewModel() {
                     artist="Chernikovskaya Hata",
                     name="Нажми на кнопку",
                     duration=10,
-                    cover=R.drawable.logo.toDrawable()
+                    cover=mockCover
                 ),
                 TrackData(
                     id="tUBVEKzsZ-k",
                     artist="Альянс",
                     name="На Заре",
                     duration=10,
-                    cover=R.drawable.logo.toDrawable()
+                    cover=mockCover
                 ),
                 TrackData(
                     id="HvZrAOIW5W8",
                     artist="Смысловые Галлюцинации",
                     name="Вечно молодой",
                     duration=10,
-                    cover=R.drawable.logo.toDrawable()
+                    cover=mockCover
                 ),
             )
         }, 1000)

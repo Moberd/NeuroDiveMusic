@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
+    id("androidx.navigation.safeargs")
 }
 
 android {
@@ -37,8 +40,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
-    apply(plugin = "androidx.navigation.safeargs.kotlin")
 }
 
 dependencies {
@@ -58,4 +59,11 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.google.code.gson:gson:2.8.9")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }

@@ -19,8 +19,9 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentPlayerBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PlayerFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBinding
     private lateinit var navController: NavController
