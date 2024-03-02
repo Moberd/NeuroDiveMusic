@@ -6,6 +6,7 @@
     <string name="main.description.toggle_play_button">Play/Pause</string>
     <string name="main.description.next_button">Next track</string>
     <string name="main.description.open_track_info_icon">Open info</string>
+    <string name="main.description.like_icon">Like</string>
 
     <string name="main.label.player">Player</string>
     <string name="main.label.history">Listening history</string>

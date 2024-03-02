@@ -7,20 +7,21 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sfedu_mmcs.neurodivemusic.databinding.TracksHistoryListItemBinding
-import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.constants.getCoverUrl
+import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 
 @Throws(IOException::class)
 fun drawableFromUrl(url: String?): Drawable? {
@@ -36,14 +37,14 @@ class TracksHistoryListAdapter(
     val onTrackClick: (id: String) -> Unit
 ) :
     RecyclerView.Adapter<TracksHistoryListAdapter.ViewHolder>() {
-    var tracksList = listOf<TrackData>()
+    var tracksList = listOf<HistoryTrackData>()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = TracksHistoryListItemBinding.bind(view)
 
-        fun bind(track: TrackData, onTrackClick: (id: String) -> Unit) = with(binding) {
+        fun bind(track: HistoryTrackData, onTrackClick: (id: String) -> Unit) = with(binding) {
             Glide.with(itemView)
-                .load(track.cover)
+                .load(getCoverUrl(track.id))
                 .apply(
                     RequestOptions()
                         .placeholder(R.drawable.logo.toDrawable()) // Placeholder image
@@ -73,7 +74,7 @@ class TracksHistoryListAdapter(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setHistory(newList: List<TrackData>) {
+    fun setHistory(newList: List<HistoryTrackData>) {
         tracksList = newList
         notifyDataSetChanged()
     }

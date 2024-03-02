@@ -2,41 +2,36 @@ package com.sfedu_mmcs.neurodivemusic.viewmodels.history
 
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.repositories.tracks.TrackRepository
 import com.sfedu_mmcs.neurodivemusic.repositories.tracks.mockCover
+import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HistoryViewModel : ViewModel() {
-    val historyList = MutableLiveData<List<TrackData>?>(null)
+@HiltViewModel
+class HistoryViewModel @Inject constructor(
+    private val trackRepository: TrackRepository
+) : ViewModel() {
+    val historyList = MutableLiveData<List<HistoryTrackData>>(emptyList())
 
-    fun fetchHistory() {
+    fun sendHistory(track: HistoryTrackData) {
+        trackRepository.sendHistory(track)
+
+        val newList = historyList.value?.toMutableList()
+
+        newList?.add(track)
+        historyList.value = newList?.toList()
+    }
+
+    init {
         Handler(Looper.getMainLooper()).postDelayed({
-            historyList.value = listOf<TrackData>(
-                TrackData(
-                    id="Ic5YEw_QzGs",
-                    artist="Chernikovskaya Hata",
-                    name="Нажми на кнопку",
-                    duration=10,
-                    cover=mockCover
-                ),
-                TrackData(
-                    id="tUBVEKzsZ-k",
-                    artist="Альянс",
-                    name="На Заре",
-                    duration=10,
-                    cover=mockCover
-                ),
-                TrackData(
-                    id="HvZrAOIW5W8",
-                    artist="Смысловые Галлюцинации",
-                    name="Вечно молодой",
-                    duration=10,
-                    cover=mockCover
-                ),
-            )
+            historyList.value = trackRepository.fetchHistory()
         }, 1000)
     }
 }

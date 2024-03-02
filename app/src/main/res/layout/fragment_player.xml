@@ -30,14 +30,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/logo"
-                />
+                tools:src="@drawable/logo" />
+
+            <ImageView
+                android:id="@+id/favoriteStatus"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/indent.sm"
+                android:layout_marginEnd="@dimen/indent.sm"
+                android:background="@color/background_primary"
+                android:contentDescription="@string/main.description.like_icon"
+                android:src="@drawable/outline_thumb_up_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/trackInfo"
@@ -47,9 +59,8 @@
                 android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
-                android:textSize="@dimen/text.main.l" />
-
-
+                android:textSize="@dimen/text.main.l"
+                tools:text="Artist - Track name" />
         </LinearLayout>
 
 
@@ -81,9 +92,6 @@
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/main.description.next_button"
                 android:src="@drawable/rounded_arrow_right_64" />
-
         </LinearLayout>
     </LinearLayout>
-
-
 </FrameLayout>
