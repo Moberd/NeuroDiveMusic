@@ -17,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.constants.getCoverUrl
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentPlayerBinding
@@ -49,7 +50,7 @@ class PlayerFragment : Fragment() {
 
         with(binding) {
             with(musicModel) {
-                currentTrack.observe(activity as LifecycleOwner) {
+                currentTrack.observe(viewLifecycleOwner) {
                     if (it !is TrackData) return@observe
 
                     val spanned = SpannableString("${it.artist} \u2014 ${it.name}")
@@ -62,7 +63,12 @@ class PlayerFragment : Fragment() {
 
                     trackInfo.text = spanned
 
-                    val thumbnailUrl = "https://img.youtube.com/vi/${it.id}/0.jpg"
+                    favoriteStatus.setImageResource(
+                        if (it.isFavorite) R.drawable.round_thumb_up_60
+                        else R.drawable.outline_thumb_up_24
+                    )
+
+                    val thumbnailUrl = getCoverUrl(it.id)
 
                     Glide.with(requireContext())
                         .load(thumbnailUrl)
@@ -76,7 +82,8 @@ class PlayerFragment : Fragment() {
 
                 status.observe(viewLifecycleOwner) {
                     if (it !is PlayStatus) return@observe
-                    val resource = if (it == PlayStatus.Play) PlayPauseResources.Pause else PlayPauseResources.Play
+                    val resource =
+                        if (it == PlayStatus.Play) PlayPauseResources.Pause else PlayPauseResources.Play
                     togglePlay.setImageResource(resource)
                 }
 

@@ -2,6 +2,8 @@ package com.sfedu_mmcs.neurodivemusic.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,20 +17,27 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.ActivityMainBinding
+import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.Emotion
+import com.sfedu_mmcs.neurodivemusic.viewmodels.history.HistoryViewModel
+import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
-import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private val trackerViewModel: TrackerViewModel by viewModels()
     private val musicModel: MusicViewModel by viewModels()
+    private val historyModel: HistoryViewModel by viewModels()
 
     lateinit var navController: NavController
+
+    var emotions = mutableListOf<Emotion>()
+
+    private var statusBeforePhoneLock = PlayStatus.Pause
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -63,39 +72,99 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(action)
         }
 
+        musicModel.trackChange.observe(this) {
+            it?.first?.let { track ->
+                if (emotions.isEmpty()) return@let
+
+                with(track) {
+
+                    historyModel.sendHistory(
+                        HistoryTrackData(
+                            id, artist, name, emotions
+                        )
+                    )
+                }
+            }
+
+            emotions = mutableListOf()
+        }
+
+        trackerViewModel.addTrackToFavorite.observe(this) {
+            if (!it || musicModel.currentTrack.value?.isFavorite == true) return@observe
+
+            musicModel.addCurrentTrackToFavorites()
+            showLikeIcon()
+        }
+
+        trackerViewModel.skipTrack.observe(this) {
+            if (!it) return@observe
+
+            musicModel.next()
+        }
+
         setupYouTubePlayer()
     }
 
     private fun setupYouTubePlayer() {
         with(binding) {
             lifecycle.addObserver(youtubePlayerView)
+
             with(musicModel) {
-                youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                youtubePlayerView.enableBackgroundPlayback(true)
+                youtubePlayerView.addYouTubePlayerListener(object :
+                    AbstractYouTubePlayerListener() {
+
+                    var lastSecond = 0
+
                     override fun onReady(youTubePlayer: YouTubePlayer) {
-                        // When the YouTube player is ready, load the video specified by currentTrack
-                        currentTrack.observe(this@MainActivity) {
-                            if (it !is TrackData) return@observe
-                            youTubePlayer.loadVideo(it.id, 0f)
-                            musicModel.setPlay()
+                        trackChange.observe(this@MainActivity) {
+                            if (it?.second == null || it.second.id == it.first?.id) return@observe
+
+                            youTubePlayer.loadVideo(it.second.id, 0f)
+                            lastSecond = 0
                         }
                         status.observe(this@MainActivity) {
-                            if (it !is PlayStatus) return@observe
                             if (it == PlayStatus.Pause) youTubePlayer.pause()
                             else youTubePlayer.play()
                         }
-                        youtubePlayerView.visibility = View.GONE
                     }
+
 
                     override fun onStateChange(
                         youTubePlayer: YouTubePlayer,
                         state: PlayerConstants.PlayerState
                     ) {
                         super.onStateChange(youTubePlayer, state)
-                        if (state == PlayerConstants.PlayerState.ENDED) musicModel.next()
+
+                        if (state == PlayerConstants.PlayerState.PAUSED) setPause()
+                        if (state == PlayerConstants.PlayerState.PLAYING) setPlay()
+                        if (state == PlayerConstants.PlayerState.ENDED) next()
+                    }
+
+                    override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
+                        super.onCurrentSecond(youTubePlayer, second)
+
+                        val currentSecond = second.toInt()
+
+                        if (currentSecond <= lastSecond) return
+
+                        lastSecond = currentSecond
+                        trackerViewModel.currentEmotion.value?.let { emotions.add(it) }
                     }
                 })
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        statusBeforePhoneLock = musicModel.status.value ?: PlayStatus.Pause
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (statusBeforePhoneLock == PlayStatus.Play) musicModel.setPlay()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -111,5 +180,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun showLikeIcon() {
+        binding.likeIcon.visibility = View.VISIBLE
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            binding.likeIcon.visibility = View.GONE
+        }, 1000)
     }
 }

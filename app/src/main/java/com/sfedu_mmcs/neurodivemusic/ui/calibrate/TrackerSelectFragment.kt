@@ -42,11 +42,11 @@ class TrackerSelectFragment : Fragment() {
 
         val controller = findNavController()
 
-        trackerViewModel.availableTrackers.observe(activity as LifecycleOwner) {
+        trackerViewModel.availableTrackers.observe(viewLifecycleOwner) {
             trackerListAdapter.setList(it)
         }
 
-        trackerViewModel.selectedTracker.observe(activity as LifecycleOwner) {
+        trackerViewModel.selectedTracker.observe(viewLifecycleOwner) {
             if (it !is TrackerInfo) return@observe
 
             trackerListAdapter.setSelectedItem(it)
