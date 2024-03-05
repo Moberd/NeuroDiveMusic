@@ -1,11 +1,11 @@
 package com.sfedu_mmcs.neurodivemusic.ui.main
-
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import kotlin.math.sin
 
 class GraphView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
@@ -31,27 +31,30 @@ class GraphView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val centerX = width / 2f
-        val centerY = height / 2f
+        val yMapRange = width
+        val xMapRange = height
 
-        // Draw X and Y axes
-        canvas.drawLine(0f, centerY, width.toFloat(), centerY, axisPaint)
-        canvas.drawLine(centerX, 0f, centerX, height.toFloat(), axisPaint)
+        val xValues = FloatArray(100) { it / 10f } // Generates x values from 0.0 to 9.9
+        val yValues = xValues.map { sin(it) } // Calculates y values using the sine function
 
-        // Draw function graph
-        function?.let { func ->
-            val stepSize = 1f
-            var prevX = 0f
-            var prevY = func(prevX)
-            var x = stepSize
+        val yMin = yValues.min()
+        val yMax = yValues.max()
 
-            while (x <= width) {
-                val y = func(x)
-                canvas.drawLine(prevX, centerY - prevY, x, centerY - y, functionPaint)
-                prevX = x
-                prevY = y
-                x += stepSize
-            }
+        val xMin = xValues.min()
+        val xMax = xValues.max()
+
+        var prevX = (xMapRange * (xValues[0] - xMin) / (xMax - xMin)).toFloat()
+        var prevY = (yMapRange * (yValues[0] - yMin) / (yMax - yMin)).toFloat()
+
+        for (idx in (1..<xValues.size)) {
+            val x = xValues[idx]
+            val y = yValues[idx]
+
+            val mappedX = (xMapRange * (x - xMin) / (xMax - xMin)).toFloat()
+            val mappedY = (yMapRange * (y - yMin) / (yMax - yMin)).toFloat()
+            canvas.drawLine(prevY, prevX, mappedY, mappedX, functionPaint)
+            prevX = mappedX
+            prevY = mappedY
         }
     }
 }

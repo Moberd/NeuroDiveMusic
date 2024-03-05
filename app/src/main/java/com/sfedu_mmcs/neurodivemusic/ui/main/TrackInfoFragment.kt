@@ -32,7 +32,7 @@ class TrackInfoFragment : Fragment() {
         binding.trackId.text =
             String.format(resources.getString(R.string.main_track_info_text_placeholder), args.trackId)
 
-        binding.graphView.setFunction { x -> sin(x) }
+        // binding.graphView.setFunction { x -> sin(x) }
     }
 
     companion object {
