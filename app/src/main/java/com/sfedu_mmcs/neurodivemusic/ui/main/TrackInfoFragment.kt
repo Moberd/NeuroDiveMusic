@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentTrackInfoBinding
+import kotlin.math.sin
 
 class TrackInfoFragment : Fragment() {
     lateinit var binding: FragmentTrackInfoBinding
@@ -30,6 +31,8 @@ class TrackInfoFragment : Fragment() {
 
         binding.trackId.text =
             String.format(resources.getString(R.string.main_track_info_text_placeholder), args.trackId)
+
+        binding.graphView.setFunction { x -> sin(x) }
     }
 
     companion object {
