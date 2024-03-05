@@ -21,10 +21,15 @@ class GraphView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         style = Paint.Style.STROKE
     }
 
-    private var function: ((Float) -> Float)? = null
+    private var xValues: FloatArray? = null
+    private var yValues: FloatArray? = null
 
-    fun setFunction(func: (Float) -> Float) {
-        function = func
+    fun setFunction(
+        X: FloatArray,
+        Y: FloatArray,
+    ) {
+        xValues = X
+        yValues = Y
         invalidate()
     }
 
@@ -34,27 +39,28 @@ class GraphView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         val yMapRange = width
         val xMapRange = height
 
-        val xValues = FloatArray(100) { it / 10f } // Generates x values from 0.0 to 9.9
-        val yValues = xValues.map { sin(it) } // Calculates y values using the sine function
+        xValues?.let { X ->
+            yValues?.let { Y ->
+                val xMin = X.min()
+                val xMax = X.max()
 
-        val yMin = yValues.min()
-        val yMax = yValues.max()
+                val yMin = Y.min()
+                val yMax = Y.max()
 
-        val xMin = xValues.min()
-        val xMax = xValues.max()
+                var prevX = (xMapRange * (X[0] - xMin) / (xMax - xMin)).toFloat()
+                var prevY = (yMapRange * (Y[0] - yMin) / (yMax - yMin)).toFloat()
 
-        var prevX = (xMapRange * (xValues[0] - xMin) / (xMax - xMin)).toFloat()
-        var prevY = (yMapRange * (yValues[0] - yMin) / (yMax - yMin)).toFloat()
+                for (idx in (1..< X.size)) {
+                    val x = X[idx]
+                    val y = Y[idx]
 
-        for (idx in (1..<xValues.size)) {
-            val x = xValues[idx]
-            val y = yValues[idx]
-
-            val mappedX = (xMapRange * (x - xMin) / (xMax - xMin)).toFloat()
-            val mappedY = (yMapRange * (y - yMin) / (yMax - yMin)).toFloat()
-            canvas.drawLine(prevY, prevX, mappedY, mappedX, functionPaint)
-            prevX = mappedX
-            prevY = mappedY
+                    val mappedX = (xMapRange * (x - xMin) / (xMax - xMin)).toFloat()
+                    val mappedY = (yMapRange * (y - yMin) / (yMax - yMin)).toFloat()
+                    canvas.drawLine(prevY, prevX, mappedY, mappedX, functionPaint)
+                    prevX = mappedX
+                    prevY = mappedY
+                }
+            }
         }
     }
 }

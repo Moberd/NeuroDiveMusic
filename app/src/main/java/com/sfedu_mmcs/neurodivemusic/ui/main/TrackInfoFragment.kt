@@ -32,7 +32,10 @@ class TrackInfoFragment : Fragment() {
         binding.trackId.text =
             String.format(resources.getString(R.string.main_track_info_text_placeholder), args.trackId)
 
-        // binding.graphView.setFunction { x -> sin(x) }
+        val xValues = FloatArray(100) { it / 10f }
+        val yValues = xValues.map { sin(it) }.toFloatArray()
+
+        binding.graphView.setFunction(xValues, yValues)
     }
 
     companion object {
