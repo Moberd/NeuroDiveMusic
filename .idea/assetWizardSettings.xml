@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialsymbolsrounded/keyboard_arrow_right/rounded_keyboard_arrow_right_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/thumb_up/outline_thumb_up_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,7 +28,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="rounded_keyboard_arrow_right_24" />
+                            <entry key="outputName" value="outline_thumb_up_24" />
                             <entry key="sourceFile" value="C:\Web\NeuroDiveMusic" />
                           </map>
                         </option>

@@ -9,19 +9,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.constants.getCoverUrl
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentPlayerBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlayerFragment : Fragment() {
     private lateinit var binding: FragmentPlayerBinding
     private lateinit var navController: NavController
+
     private val musicModel: MusicViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +50,7 @@ class PlayerFragment : Fragment() {
 
         with(binding) {
             with(musicModel) {
-                currentTrack.observe(activity as LifecycleOwner) {
+                currentTrack.observe(viewLifecycleOwner) {
                     if (it !is TrackData) return@observe
 
                     val spanned = SpannableString("${it.artist} \u2014 ${it.name}")
@@ -55,13 +62,28 @@ class PlayerFragment : Fragment() {
                     )
 
                     trackInfo.text = spanned
-                    trackCover.setImageDrawable(it.cover)
 
+                    favoriteStatus.setImageResource(
+                        if (it.isFavorite) R.drawable.round_thumb_up_60
+                        else R.drawable.outline_thumb_up_24
+                    )
+
+                    val thumbnailUrl = getCoverUrl(it.id)
+
+                    Glide.with(requireContext())
+                        .load(thumbnailUrl)
+                        .apply(
+                            RequestOptions()
+                                .placeholder(R.drawable.logo.toDrawable())
+                                .error(R.drawable.logo.toDrawable())
+                        )
+                        .into(trackCover)
                 }
 
-                status.observe(activity as LifecycleOwner) {
+                status.observe(viewLifecycleOwner) {
+                    if (it !is PlayStatus) return@observe
                     val resource =
-                        if (it == PlayStatus.Play) PlayPauseResources.Play else PlayPauseResources.Pause
+                        if (it == PlayStatus.Play) PlayPauseResources.Pause else PlayPauseResources.Play
                     togglePlay.setImageResource(resource)
                 }
 
