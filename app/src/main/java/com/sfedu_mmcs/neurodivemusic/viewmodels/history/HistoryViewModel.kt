@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.repositories.tracks.TrackRepository
-import com.sfedu_mmcs.neurodivemusic.repositories.tracks.mockCover
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import dagger.hilt.android.lifecycle.HiltViewModel

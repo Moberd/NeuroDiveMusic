@@ -1,77 +1,26 @@
 package com.sfedu_mmcs.neurodivemusic.repositories.tracks
 
+import android.R.attr.data
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
-import androidx.core.graphics.drawable.toDrawable
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.constants.getTracksUrl
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeout
+import java.io.BufferedReader
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.URL
 import javax.inject.Inject
 
-const val mockCover =
-    "https://memoteka.com/images/thumb/9/99/%D0%9F%D0%B5%D0%BF%D0%B50.jpg/300px-%D0%9F%D0%B5%D0%BF%D0%B50.jpg"
-
-val trackMocks = listOf<TrackData>(
-    TrackData(
-        id = "tUBVEKzsZ-k",
-        artist = "Альянс",
-        name = "На Заре",
-    ),
-    TrackData(
-        id = "HvZrAOIW5W8",
-        artist = "Смысловые Галлюцинации",
-        name = "Вечно молодой",
-    ),
-    TrackData(
-        id = "1M_k7b1cAxM",
-        artist = "Chernikovskaya Hata",
-        name = "Ты не верь слезам",
-    ),
-    TrackData(
-        id = "rrqjcTX78NY",
-        artist = "ROOS + BERG",
-        name = "No One Left to Love",
-    ),
-    TrackData(
-        id = "iVdVZfpPXds",
-        artist = "Смешарики",
-        name = "От винта! (Dance Remix)",
-    ),
-    TrackData(
-        id = "2LOmFBBq4T0",
-        artist = "The Living Tombstone",
-        name = "Dog of Wisdom Remix BLUE feat. Joe Gran",
-    ),
-    TrackData(
-        id = "7xkM8mWC4Kk",
-        artist = "Hollow Knight OST",
-        name = "Hornet",
-    ),
-    TrackData(
-        id = "Mq8E_1LkoAc",
-        artist = "Hollow Knight OST",
-        name = "Nightmare King",
-    ),
-    TrackData(
-        id = "cwJKjuyLv80",
-        artist = "Enjoykin",
-        name = "Ламповая Няша",
-    ),
-    TrackData(
-        id = "jhExvE5fvJw",
-        artist = "Eminem & Noisestorm",
-        name = "Crab God",
-    ),
-    TrackData(
-        id = "oT3mCybbhf0",
-        artist = "AVICII & RICK ASTLEY",
-        name = "Never Gonna Wake You Up",
-    ),
-)
 
 object StorageKeys {
     const val sharedPreferencesKey = "TrackPreferences"
@@ -91,19 +40,30 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
     private fun saveEntities(tracks: List<TrackData>) {
         val json = gson.toJson(tracks)
         sharedPreferences.edit().putString(StorageKeys.tracks, json).apply()
+        Log.i("jsonstring", "valid json $json")
     }
 
     private var lastId: String? = null
 
     private fun getEntities(): List<TrackData> {
-        val json = sharedPreferences.getString(StorageKeys.tracks, null)
+        var response = ""
+        runBlocking {
+            try {
+                withTimeout(5000) {  // 5 seconds for timeout
+                    launch(Dispatchers.IO) {    // using IO Dispatcher and not the default
+                        response = URL(getTracksUrl()).readText()
+                    } // launch
+                } // timeout
+            } catch (e: Exception) {  // Timeout, permission, URL or network error
+                response = "Error"   // Here one uses a not valid message
+            }
+        }
 
-        val tracksFromStorage = json?.let {
+        val tracksFromStorage = response.let {
             gson.fromJson<List<TrackData>>(it, object : TypeToken<List<TrackData>>() {}.type)
-        } ?: trackMocks
+        }
 
         saveEntities(tracksFromStorage)
-
         return tracksFromStorage
 
     }
