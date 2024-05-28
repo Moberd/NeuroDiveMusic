@@ -1,13 +1,11 @@
 package com.sfedu_mmcs.neurodivemusic.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,12 +15,12 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.ActivityMainBinding
-import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.Emotion
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.HistoryViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
-import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
+import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
+import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.Emotion
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -52,19 +50,10 @@ class MainActivity : AppCompatActivity() {
             navController.graph
         )
 
-        val toolbarMenu = binding.toolbar.menu
+        binding.bottomNavigationView.setupWithNavController(navController)
 
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        navController.addOnDestinationChangedListener(
-            NavController.OnDestinationChangedListener { _, destination, _ ->
-                val historyMenuButton = toolbarMenu.findItem(R.id.main_toolbar_historyButton)
-                historyMenuButton?.setVisible(destination.id == R.id.mainNavigation_playerFragment)
-            }
-        )
 
         trackerViewModel.calibrated.observe(this) {
             if (it) return@observe
@@ -165,21 +154,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (statusBeforePhoneLock == PlayStatus.Play) musicModel.setPlay()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.main_toolbar_historyButton -> {
-                val action = PlayerFragmentDirections.actionPlayerFragmentToTracksHistoryFragment()
-                navController.navigate(action)
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     fun showLikeIcon() {

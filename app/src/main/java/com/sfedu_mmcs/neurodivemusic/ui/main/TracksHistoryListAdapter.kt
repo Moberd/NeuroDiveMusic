@@ -34,7 +34,7 @@ fun drawableFromUrl(url: String?): Drawable? {
 }
 
 class TracksHistoryListAdapter(
-    val onTrackClick: (id: String) -> Unit
+    val onTrackClick: (track: HistoryTrackData) -> Unit
 ) :
     RecyclerView.Adapter<TracksHistoryListAdapter.ViewHolder>() {
     var tracksList = listOf<HistoryTrackData>()
@@ -42,7 +42,7 @@ class TracksHistoryListAdapter(
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = TracksHistoryListItemBinding.bind(view)
 
-        fun bind(track: HistoryTrackData, onTrackClick: (id: String) -> Unit) = with(binding) {
+        fun bind(track: HistoryTrackData, onTrackClick: (track: HistoryTrackData) -> Unit) = with(binding) {
             Glide.with(itemView)
                 .load(getCoverUrl(track.id))
                 .apply(
@@ -54,7 +54,7 @@ class TracksHistoryListAdapter(
 
             artist.text = track.artist
             trackName.text = track.name
-            card.setOnClickListener { onTrackClick(track.id) }
+            deleteTrack.setOnClickListener { onTrackClick(track) }
         }
 
 
@@ -71,6 +71,12 @@ class TracksHistoryListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(tracksList[position], onTrackClick)
+    }
+
+    fun deleteTrack(elem : HistoryTrackData) {
+        val new_list = tracksList.toMutableList()
+        new_list.removeAt(new_list.indexOf(elem))
+        setHistory(new_list)
     }
 
     @SuppressLint("NotifyDataSetChanged")

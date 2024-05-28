@@ -8,6 +8,7 @@
     tools:context=".ui.main.PlayerFragment">
 
     <LinearLayout
+        android:paddingTop="@dimen/indent.m"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
@@ -19,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
                 android:id="@+id/trackCover"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -36,8 +38,8 @@
                 android:id="@+id/favoriteStatus"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginTop="@dimen/indent.sm"
-                android:layout_marginEnd="@dimen/indent.sm"
+                android:layout_marginTop="@dimen/indent.s"
+                android:layout_marginEnd="@dimen/indent.s"
                 android:background="@color/background_primary"
                 android:contentDescription="@string/main.description.like_icon"
                 android:src="@drawable/outline_thumb_up_24"
@@ -49,10 +51,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/trackInfo"
+                android:id="@+id/trackName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="marquee"
@@ -60,14 +63,37 @@
                 android:maxLines="1"
                 android:scrollHorizontally="true"
                 android:textSize="@dimen/text.main.l"
-                tools:text="Artist - Track name" />
+                tools:text="Track Name"
+                android:textColor="@color/text_white"/>
+
+            <TextView
+                android:id="@+id/artistName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:maxLines="1"
+                android:scrollHorizontally="true"
+                android:textSize="@dimen/text.main.m"
+                tools:text="Artist "
+                android:textColor="@color/navy"/>
+            <SeekBar
+                android:progressTint="@color/cyan_local"
+                android:thumbTint="@color/cyan_local"
+                android:progress="30"
+                android:layout_marginTop="30sp"
+                android:layout_width="350sp"
+                android:layout_height="30sp"
+                android:max="100"
+                android:min="1"/>
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingBottom="100dp">
 
             <ImageButton
                 android:id="@+id/playPrevious"
@@ -75,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/main.description.prev_button"
-                android:src="@drawable/rounded_arrow_left_64" />
+                android:src="@drawable/prev_arrow" />
 
             <ImageButton
                 android:id="@+id/togglePlay"
@@ -83,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/main.description.toggle_play_button"
-                android:src="@drawable/round_play_arrow_64" />
+                android:src="@drawable/baseline_play_circle_24" />
 
             <ImageButton
                 android:id="@+id/playNext"
@@ -91,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/main.description.next_button"
-                android:src="@drawable/rounded_arrow_right_64" />
+                android:src="@drawable/next_arrrow" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

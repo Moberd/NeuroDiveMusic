@@ -28,6 +28,10 @@ class HistoryViewModel @Inject constructor(
         historyList.value = newList?.toList()
     }
 
+    fun deleteFromHistory(track: HistoryTrackData) {
+        trackRepository.deleteFromFavorites(track.id)
+    }
+
     init {
         Handler(Looper.getMainLooper()).postDelayed({
             historyList.value = trackRepository.fetchHistory()

@@ -6,9 +6,4 @@
             <solid android:color="@color/app_background" />
         </shape>
     </item>
-
-    <item android:id="@+id/item_img">
-        <bitmap android:src="@drawable/topography" />
-    </item>
-
 </layer-list>

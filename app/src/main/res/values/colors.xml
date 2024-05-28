@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000000</color>
+    <color name="black">#1C1E1F</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background_black">#17171A</color>
-    <color name="background_gray">#24252C</color>
+    <color name="background_gray">#2A373C</color>
     <color name="text_white">#FFFFFFDE</color>
     <color name="transparent">#00FFFFFF</color>
 
@@ -14,12 +14,14 @@
     <color name="primary_blue">#315efb</color>
     <color name="alternative_blue">#649dff</color>
     <color name="sky_blue">#9fdfff</color>
+    <color name="cyan_local">#07DED2</color>
 
     <color name="carbone">#343b4c</color>
     <color name="light_carbone">#62687f</color>
     <color name="cloud_gray">#8d96b2</color>
     <color name="pearl_gray">#c6cad8</color>
     <color name="aluminium">#eef2f4</color>
+    <color name="navy">#6B95A4</color>
 
     <color name="primary_black">#262626</color>
     <color name="black_060">#7d7d7d</color>
@@ -28,11 +30,13 @@
 
     <!--    Background -->
 
-    <color name="background_primary">@color/white</color>
-    <color name="app_background">@color/white</color>
+    <color name="background_primary">@color/black</color>
+    <color name="app_background">@color/black</color>
+
 
     <!--    Text -->
     <color name="text_static_white">@color/white</color>
+    <color name="text_navy">@color/navy</color>
     <color name="text_static_black">@color/black</color>
     <color name="text_primary">@color/black</color>
 
@@ -44,7 +48,8 @@
     <color name="gray_600">#FF757575</color>
 
     <!--    icons-->
-    <color name="icon_primary">@color/carbone</color>
+    <color name="icon_primary">@color/cyan_local</color>
+    <color name="icon_sec">@color/navy</color>
 
 <!--    border-->
     <color name="border_primary">@color/light_carbone</color>

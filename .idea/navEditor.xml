@@ -143,7 +143,23 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_playerFragment_to_tracksHistoryFragment">
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="mainNavigation_settingsFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_settingsFragment_to_calibrateActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -176,6 +192,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_tracksHistoryFragment_to_calibrateActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_tracksHistoryFragment_to_trackInfoFragment">
                               <value>
                                 <LayoutPositions />

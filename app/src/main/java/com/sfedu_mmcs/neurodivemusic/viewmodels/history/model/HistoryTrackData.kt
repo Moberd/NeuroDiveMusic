@@ -7,4 +7,5 @@ data class HistoryTrackData @JvmOverloads constructor(
     val artist: String = "",
     val name: String = "",
     val emotions: List<Emotion> = listOf(),
+    val isFavorite: Boolean = false,
 )

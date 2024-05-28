@@ -53,15 +53,25 @@ class PlayerFragment : Fragment() {
                 currentTrack.observe(viewLifecycleOwner) {
                     if (it !is TrackData) return@observe
 
-                    val spanned = SpannableString("${it.artist} \u2014 ${it.name}")
-                    spanned.setSpan(
+                    val spannedArtist = SpannableString(it.artist)
+                    spannedArtist.setSpan(
                         StyleSpan(Typeface.BOLD),
                         0,
                         it.artist.length,
                         Spannable.SPAN_INCLUSIVE_EXCLUSIVE
                     )
 
-                    trackInfo.text = spanned
+                    artistName.text = spannedArtist
+
+                    val spannedTrack = SpannableString(it.name)
+                    spannedTrack.setSpan(
+                        StyleSpan(Typeface.BOLD),
+                        0,
+                        it.name.length,
+                        Spannable.SPAN_INCLUSIVE_EXCLUSIVE
+                    )
+
+                    trackName.text = spannedTrack
 
                     favoriteStatus.setImageResource(
                         if (it.isFavorite) R.drawable.round_thumb_up_60
@@ -96,8 +106,8 @@ class PlayerFragment : Fragment() {
     }
 
     object PlayPauseResources {
-        val Play = R.drawable.round_play_arrow_64
-        val Pause = R.drawable.round_pause_64
+        val Play = R.drawable.baseline_play_circle_24
+        val Pause = R.drawable.baseline_pause_circle_24
     }
 
     companion object {

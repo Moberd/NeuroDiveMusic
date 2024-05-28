@@ -49,8 +49,8 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
         var response = ""
         runBlocking {
             try {
-                withTimeout(5000) {  // 5 seconds for timeout
-                    launch(Dispatchers.IO) {    // using IO Dispatcher and not the default
+                withTimeout(5000) {
+                    launch(Dispatchers.IO) {
                         response = URL(getTracksUrl()).readText()
                     } // launch
                 } // timeout
@@ -83,18 +83,21 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
     }
 
     fun fetchHistory(): List<HistoryTrackData> {
-        if (history.isEmpty()) {
-            val json = sharedPreferences.getString(StorageKeys.history, null)
+        val json = sharedPreferences.getString(StorageKeys.tracks, null)
 
-            history = if (json != null) {
-                gson.fromJson(json, object : TypeToken<List<HistoryTrackData>>() {}.type)
-            } else {
-                emptyList()
-            }
-
+        history = if (json != null) {
+            gson.fromJson(json, object : TypeToken<List<HistoryTrackData>>() {}.type)
+        } else {
+            emptyList()
         }
 
-        return history
+        return history.filter { it.isFavorite }
+    }
+
+    fun deleteFromFavorites(id: String) {
+        val newTrackList = tracksList.map { if (it.id == id) it.copy(isFavorite = false) else it }
+        tracksList = newTrackList
+        saveEntities(newTrackList)
     }
 
     fun sendHistory(track: HistoryTrackData) {
@@ -103,7 +106,7 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
         history = newHistory.toList()
 
         val json = gson.toJson(history)
-        sharedPreferences.edit().putString(StorageKeys.history, json).apply()
+        //sharedPreferences.edit().putString(StorageKeys.tracks, json).apply()
     }
 }
 

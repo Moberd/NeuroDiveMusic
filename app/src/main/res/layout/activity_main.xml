@@ -12,13 +12,6 @@
         android:orientation="vertical"
         tools:context=".ui.main.MainActivity">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/indent.xs"
-            app:menu="@menu/main_menu" />
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -27,6 +20,23 @@
             android:layout_weight="1"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_navigation" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/cyan_local"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/tabbar_menu"
+            app:itemTextColor="@drawable/nav_bar_colors"
+            app:itemIconTint="@drawable/nav_bar_colors"
+            app:itemActiveIndicatorStyle="@style/Widget.Design.BottomNavigationView"
+            app:itemIconSize="@dimen/indent.m"
+            />
     </LinearLayout>
 
     <ImageView
@@ -40,6 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtubePlayerView"

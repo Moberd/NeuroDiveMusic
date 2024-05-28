@@ -11,9 +11,6 @@
         android:label="@string/main.label.player"
         tools:layout="@layout/fragment_player">
         <action
-            android:id="@+id/action_playerFragment_to_tracksHistoryFragment"
-            app:destination="@id/mainNavigation_tracksHistoryFragment" />
-        <action
             android:id="@+id/action_playerFragment_to_calibrateActivity"
             app:destination="@id/mainNavigation_calibrateActivity" />
     </fragment>
@@ -25,6 +22,9 @@
         <action
             android:id="@+id/action_tracksHistoryFragment_to_trackInfoFragment"
             app:destination="@id/mainNavigation_trackInfoFragment" />
+        <action
+            android:id="@+id/action_tracksHistoryFragment_to_calibrateActivity"
+            app:destination="@id/mainNavigation_calibrateActivity" />
     </fragment>
     <fragment
         android:id="@+id/mainNavigation_trackInfoFragment"
@@ -40,4 +40,13 @@
         android:name="com.sfedu_mmcs.neurodivemusic.ui.calibrate.CalibrateActivity"
         android:label="@string/main.label.calibration"
         tools:layout="@layout/activity_calibrate" />
+    <fragment
+        android:id="@+id/mainNavigation_settingsFragment"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.main.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_calibrateActivity"
+            app:destination="@id/mainNavigation_calibrateActivity" />
+    </fragment>
 </navigation>

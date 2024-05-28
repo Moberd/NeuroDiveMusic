@@ -3,6 +3,11 @@
   <component name="WizardSettings">
     <option name="children">
       <map>
+        <entry key="imageWizard">
+          <value>
+            <PersistentState />
+          </value>
+        </entry>
         <entry key="vectorWizard">
           <value>
             <PersistentState>
@@ -18,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/thumb_up/outline_thumb_up_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/delete_outline/baseline_delete_outline_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="outline_thumb_up_24" />
-                            <entry key="sourceFile" value="C:\Web\NeuroDiveMusic" />
+                            <entry key="outputName" value="baseline_delete_outline_24" />
+                            <entry key="sourceFile" value="$USER_HOME$/Downloads/prev_arrow.svg" />
                           </map>
                         </option>
                       </PersistentState>

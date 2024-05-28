@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_margin="@dimen/indent.m"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/background_black">
+
+    <TextView
+        android:paddingTop="@dimen/indent.s"
+        android:paddingLeft="@dimen/indent.m"
+        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Удалить из спиcка трек?"
+        android:textColor="@color/text_white"
+        android:textSize="@dimen/text.main.s"/>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/indent.xxs"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Space
+            android:layout_width="@dimen/indent.xxl"
+            android:layout_height="@dimen/indent.l"
+            />
+
+        <Button
+            android:textColor="@color/navy"
+            android:background="@color/transparent"
+            android:layout_gravity="center"
+            android:text="Отмена"
+            android:id="@+id/tv1"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text.additional.s">
+        </Button>
+
+        <Button
+            android:textColor="@color/navy"
+            android:background="@color/transparent"
+            android:layout_gravity="center"
+            android:text="Удалить"
+            android:id="@+id/tv2"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text.additional.s">
+        </Button>
+
+    </LinearLayout>
+</LinearLayout>

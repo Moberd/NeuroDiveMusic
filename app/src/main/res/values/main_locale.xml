@@ -14,4 +14,8 @@
     <string name="main.label.calibration">Сalibration</string>
 
     <string name="main.track_info.text.placeholder">Information about track with id %s</string>
+
+    <string name="main.tabbar.item.home">Главная</string>
+    <string name="main.tabbar.item.favorites">Избранное</string>
+    <string name="main.tabbar.item.settings">Настройки</string>
 </resources>
