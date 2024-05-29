@@ -30,6 +30,10 @@ class HistoryViewModel @Inject constructor(
 
     fun deleteFromHistory(track: HistoryTrackData) {
         trackRepository.deleteFromFavorites(track.id)
+
+        historyList.value = historyList.value?.filter {
+            it.id != track.id
+        }
     }
 
     init {
