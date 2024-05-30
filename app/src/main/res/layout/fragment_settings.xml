@@ -5,9 +5,138 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.SettingsFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text.main.l"
-        android:text="ksdljvnsdlkjvnsfdl"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Настройки"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text.main.l"
+            android:layout_marginStart="@dimen/indent.m"
+            android:layout_marginTop="@dimen/indent.xxl"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выбрать жанр"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text.main.m"
+            android:layout_marginStart="@dimen/indent.s"
+            android:layout_marginTop="@dimen/indent.xl"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/indent.s"
+            android:layout_marginEnd="@dimen/indent.s"
+            android:layout_marginTop="@dimen/text.main.s"
+            android:background="@drawable/radius_border"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginStart="@dimen/indent.s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Рок"
+                    android:textSize="@dimen/text.main.s"
+                    android:textColor="@color/text_white"
+                    android:layout_weight="1"/>
+                <CheckBox
+                    android:checked="true"
+                    android:layout_width="@dimen/indent.xl"
+                    android:layout_height="@dimen/indent.xl" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginStart="@dimen/indent.s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Поп"
+                    android:textSize="@dimen/text.main.s"
+                    android:textColor="@color/text_white"
+                    android:layout_weight="1"/>
+                <CheckBox
+                    android:checked="true"
+                    android:layout_width="@dimen/indent.xl"
+                    android:layout_height="@dimen/indent.xl" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginStart="@dimen/indent.s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Джаз"
+                    android:textSize="@dimen/text.main.s"
+                    android:textColor="@color/text_white"
+                    android:layout_weight="1"/>
+                <CheckBox
+                    android:checked="true"
+                    android:layout_width="@dimen/indent.xl"
+                    android:layout_height="@dimen/indent.xl" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginStart="@dimen/indent.s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Латино Американская музыка "
+                    android:textSize="@dimen/text.main.s"
+                    android:textColor="@color/text_white"
+                    android:layout_weight="1"/>
+                <CheckBox
+                    android:checked="true"
+                    android:layout_width="@dimen/indent.xl"
+                    android:layout_height="@dimen/indent.xl" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginStart="@dimen/indent.s"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Звуки тишины и природы"
+                    android:textSize="@dimen/text.main.s"
+                    android:textColor="@color/text_white"
+                    android:layout_weight="1"/>
+                <CheckBox
+                    android:checked="true"
+                    android:layout_width="@dimen/indent.xl"
+                    android:layout_height="@dimen/indent.xl" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 </FrameLayout>

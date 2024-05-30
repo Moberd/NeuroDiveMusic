@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/indent.xs"
             tools:listitem="@layout/tracks_history_list_item"
-            android:background="@color/background_gray"
+            android:background="@drawable/radius_border"
             />
 
     </LinearLayout>
