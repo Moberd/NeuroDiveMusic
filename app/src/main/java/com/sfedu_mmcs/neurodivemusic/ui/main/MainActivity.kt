@@ -22,6 +22,7 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.Emotion
 import dagger.hilt.android.AndroidEntryPoint
+import java.time.Duration
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -109,6 +110,8 @@ class MainActivity : AppCompatActivity() {
                         trackChange.observe(this@MainActivity) {
                             if (it?.second == null || it.second.id == it.first?.id) return@observe
 
+                            musicModel.youTubePlayer.value = youTubePlayer
+
                             youTubePlayer.loadVideo(it.second.id, 0f)
                             lastSecond = 0
                         }
@@ -133,12 +136,23 @@ class MainActivity : AppCompatActivity() {
                     override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
                         super.onCurrentSecond(youTubePlayer, second)
 
-                        val currentSecond = second.toInt()
+                        val currentPlayerSecond = second.toInt()
 
-                        if (currentSecond <= lastSecond) return
+                        if (currentPlayerSecond <= lastSecond) return
 
-                        lastSecond = currentSecond
+                        lastSecond = currentPlayerSecond
                         trackerViewModel.currentEmotion.value?.let { emotions.add(it) }
+
+                        currentSecond.value = currentPlayerSecond
+                    }
+
+                    override fun onVideoDuration(youTubePlayer: YouTubePlayer, trackDuration: Float) {
+                        duration.value = trackDuration.toInt()
+                    }
+
+                    override  fun onVideoId( youTubePlayer:  YouTubePlayer,  videoId: String) {
+                        currentSecond.value = 0
+                        lastSecond = 0;
                     }
                 })
             }

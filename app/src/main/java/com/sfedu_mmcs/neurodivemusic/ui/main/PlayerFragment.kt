@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.StyleSpan
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
@@ -96,6 +98,32 @@ class PlayerFragment : Fragment() {
                         if (it == PlayStatus.Play) PlayPauseResources.Pause else PlayPauseResources.Play
                     togglePlay.setImageResource(resource)
                 }
+
+                duration.observe(viewLifecycleOwner) {
+                    seekBar.max = it
+                }
+
+                currentSecond.observe(viewLifecycleOwner) {
+                    seekBar.progress = it
+                }
+
+                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(
+                        seekBar: SeekBar?,
+                        progress: Int,
+                        fromUser: Boolean
+                    ) {
+                        youTubePlayer.value?.seekTo(progress.toFloat())
+                    }
+
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                    }
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                    }
+
+                })
+
 
                 playNext.setOnClickListener { next() }
                 playPrevious.setOnClickListener { prev() }

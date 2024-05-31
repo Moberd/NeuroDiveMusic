@@ -3,6 +3,7 @@ package com.sfedu_mmcs.neurodivemusic.viewmodels.music
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.sfedu_mmcs.neurodivemusic.repositories.tracks.TrackRepository
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
@@ -19,6 +20,11 @@ class MusicViewModel @Inject constructor(
     private var trackQueueIndex = 0
 
     val currentTrack = MutableLiveData<TrackData?>(null)
+
+    val youTubePlayer = MutableLiveData<YouTubePlayer>()
+
+    val currentSecond = MutableLiveData<Int>(0)
+    val duration = MutableLiveData<Int>(0)
 
     val status = MutableLiveData(PlayStatus.Pause)
 
@@ -42,8 +48,6 @@ class MusicViewModel @Inject constructor(
     }
 
     fun prev() {
-        Log.i("123", "prev start $trackQueueIndex")
-        Log.i("123", "prev start ${trackQueue.size}")
         if (trackQueueIndex < 1) return
 
         val prevTrack = trackQueue[trackQueueIndex - 1]
