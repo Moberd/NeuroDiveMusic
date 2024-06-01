@@ -75,10 +75,6 @@ class PlayerFragment : Fragment() {
 
                     trackName.text = spannedTrack
 
-                    favoriteStatus.setImageResource(
-                        if (it.isFavorite) R.drawable.round_thumb_up_60
-                        else R.drawable.outline_thumb_up_24
-                    )
 
                     val thumbnailUrl = getCoverUrl(it.id)
 
@@ -101,10 +97,21 @@ class PlayerFragment : Fragment() {
 
                 duration.observe(viewLifecycleOwner) {
                     seekBar.max = it
+
+                    val minutest = (it / 60).toInt()
+                    val seconds = it % 60
+
+                    binding.duretion.setText("${minutest.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}")
                 }
 
                 currentSecond.observe(viewLifecycleOwner) {
                     seekBar.progress = it
+
+
+                    val minutest = (it / 60).toInt()
+                    val seconds = it % 60
+
+                    binding.currentTime.setText("${minutest.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}")
                 }
 
                 seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
@@ -134,8 +141,8 @@ class PlayerFragment : Fragment() {
     }
 
     object PlayPauseResources {
-        val Play = R.drawable.baseline_play_circle_24
-        val Pause = R.drawable.baseline_pause_circle_24
+        val Play = R.drawable.play
+        val Pause = R.drawable.pause
     }
 
     companion object {

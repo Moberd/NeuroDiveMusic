@@ -30,13 +30,10 @@
 
         <Button
             android:id="@+id/calibrateButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/indent.xs"
-            android:paddingHorizontal="@dimen/indent.m"
-            android:paddingVertical="@dimen/indent.xs"
             android:text="@string/calibration.text.calibrate_button"
             android:textAllCaps="true"
-            android:textSize="@dimen/text.main.l" />
+            android:textSize="@dimen/text.main.l"
+            style="@style/Widget.NeuroDiveMusic.Button"/>
     </LinearLayout>
 </FrameLayout>

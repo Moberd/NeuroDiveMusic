@@ -8,45 +8,42 @@
     tools:context=".ui.main.PlayerFragment">
 
     <LinearLayout
-        android:paddingTop="@dimen/indent.m"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/indent.sm"
+        android:paddingHorizontal="@dimen/indent.sxl"
+        android:paddingTop="@dimen/indent.m"
         android:paddingBottom="@dimen/indent.sm">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/transparent"
+            app:cardCornerRadius="200dp">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-                android:id="@+id/trackCover"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:contentDescription="@string/main.description.cover_image"
-                android:scaleType="fitCenter"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/logo" />
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/favoriteStatus"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="@dimen/indent.s"
-                android:layout_marginEnd="@dimen/indent.s"
-                android:background="@color/background_primary"
-                android:contentDescription="@string/main.description.like_icon"
-                android:src="@drawable/outline_thumb_up_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/trackCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/main.description.cover_image"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="H,1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                    tools:src="@drawable/logo" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -56,68 +53,96 @@
 
             <TextView
                 android:id="@+id/trackName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TypographySubtitleS"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
-                android:textSize="@dimen/text.main.l"
-                tools:text="Track Name"
-                android:textColor="@color/text_white"/>
+                tools:text="Track Name" />
 
             <TextView
                 android:id="@+id/artistName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TypographySubheadS"
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:maxLines="1"
                 android:scrollHorizontally="true"
-                android:textSize="@dimen/text.main.m"
-                tools:text="Artist "
-                android:textColor="@color/navy"/>
-            <SeekBar
-                android:id="@+id/seekBar"
-                android:progressTint="@color/cyan_local"
-                android:thumbTint="@color/cyan_local"
-                android:layout_marginTop="30sp"
-                android:layout_width="350sp"
-                android:layout_height="30sp"
-                android:max="0"
-                android:min="0"/>
-        </LinearLayout>
+                tools:text="Artist " />
 
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingBottom="100dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/playPrevious"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparent"
-                android:contentDescription="@string/main.description.prev_button"
-                android:src="@drawable/prev_arrow" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/togglePlay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparent"
-                android:contentDescription="@string/main.description.toggle_play_button"
-                android:src="@drawable/baseline_play_circle_24" />
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/indent.m"
+                    android:max="0"
+                    android:min="0"
+                    android:progressTint="@color/text_secondary"
+                    android:thumbTint="@color/primary" />
 
-            <ImageButton
-                android:id="@+id/playNext"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparent"
-                android:contentDescription="@string/main.description.next_button"
-                android:src="@drawable/next_arrrow" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/currentTime"
+                        style="@style/TypographySubheadS"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        tools:text="00:10" />
+
+                    <TextView
+                        android:id="@+id/duretion"
+                        style="@style/TypographySubheadS"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:textAlignment="textEnd"
+                        tools:text="-04:10" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/indent.xs"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/playPrevious"
+                    style="@style/Widget.NeuroDiveMusic.ButtonImage"
+                    android:layout_marginEnd="@dimen/indent.l"
+                    android:contentDescription="@string/main.description.prev_button"
+                    android:src="@drawable/prev" />
+
+                <ImageButton
+                    android:id="@+id/togglePlay"
+                    style="@style/Widget.NeuroDiveMusic.ButtonImage"
+                    android:layout_width="@dimen/indent.sxl"
+                    android:layout_height="@dimen/indent.sxl"
+                    android:contentDescription="@string/main.description.toggle_play_button"
+                    android:src="@drawable/play"
+                    app:tint="@color/icon_active" />
+
+                <ImageButton
+                    android:id="@+id/playNext"
+                    style="@style/Widget.NeuroDiveMusic.ButtonImage"
+                    android:layout_marginStart="@dimen/indent.l"
+                    android:contentDescription="@string/main.description.next_button"
+                    android:src="@drawable/next" />
+            </LinearLayout>
+
         </LinearLayout>
+
     </LinearLayout>
 </FrameLayout>

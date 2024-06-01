@@ -12,6 +12,24 @@
 
     <style name="roundedImageViewRounded">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">@dimen/radii.xxxs</item>
     </style>
+
+    <style name="TypographySubtitleS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.main.s</item>
+        <item name="android:lineHeight">@dimen/indent.sm</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TypographySubheadS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.additional.s</item>
+        <item name="android:lineHeight">@dimen/indent.s</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+
 </resources>

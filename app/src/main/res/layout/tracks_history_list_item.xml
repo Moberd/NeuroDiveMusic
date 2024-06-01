@@ -8,11 +8,11 @@
     app:cardElevation="0dp"
     android:outlineProvider="bounds"
     app:strokeWidth="0dp"
-    android:background="@color/background_gray"
-    app:strokeColor="@color/background_gray">
+    android:background="@color/background_primary"
+    app:strokeColor="@color/background_primary">
 
     <LinearLayout
-        android:background="@color/background_gray"
+        android:background="@color/background_primary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"

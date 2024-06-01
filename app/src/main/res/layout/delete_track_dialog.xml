@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/background_black">
+    android:background="@color/background_primary">
 
     <TextView
         android:paddingTop="@dimen/indent.s"
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Удалить из спиcка трек?"
-        android:textColor="@color/text_white"
+        android:textColor="@color/text_primary"
         android:textSize="@dimen/text.main.s"/>
 
     <LinearLayout

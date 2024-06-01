@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.TracksHistoryFragment"
-    android:background="@color/background_black">
+    android:background="@color/background_primary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Избранное"
-                android:textColor="@color/text_white"
+                android:textColor="@color/text_primary"
                 android:textSize="@dimen/text.main.l"
                 android:layout_marginStart="@dimen/indent.m"
                 android:layout_marginTop="@dimen/indent.s"

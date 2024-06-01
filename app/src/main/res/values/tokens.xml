@@ -8,9 +8,12 @@
     <dimen name="indent.sm">24dp</dimen>
     <dimen name="indent.m">32dp</dimen>
     <dimen name="indent.l">40dp</dimen>
+    <dimen name="indent.sxl">44dp</dimen>
     <dimen name="indent.xl">48dp</dimen>
     <dimen name="indent.xxl">56dp</dimen>
     <dimen name="indent.xxxl">64dp</dimen>
+
+    <dimen name="radii.xxxs">8dp</dimen>
 
     <dimen name="text.main.s">18sp</dimen>
     <dimen name="text.main.m">22sp</dimen>
