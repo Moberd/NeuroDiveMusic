@@ -59,6 +59,17 @@ class MusicViewModel @Inject constructor(
         Log.i("123", "prev end $trackQueueIndex")
     }
 
+    fun playTrack(id: String) {
+        val nextTack = trackRepository.getTrack(id) ?: return
+
+        trackChange.value = Pair(currentTrack.value, nextTack)
+        currentTrack.value = nextTack
+        setPlay()
+
+        trackQueue.clear()
+        trackQueue.add(nextTack)
+    }
+
     fun addCurrentTrackToFavorites() =
         currentTrack.value?.let {
             trackRepository.addToFavorites(it.id)

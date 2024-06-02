@@ -1,13 +1,11 @@
 package com.sfedu_mmcs.neurodivemusic.ui.main
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +20,7 @@ import java.net.URL
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.constants.getCoverUrl
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 
 @Throws(IOException::class)
 fun drawableFromUrl(url: String?): Drawable? {
@@ -34,28 +33,46 @@ fun drawableFromUrl(url: String?): Drawable? {
 }
 
 class TracksHistoryListAdapter(
-    val onTrackClick: (track: HistoryTrackData) -> Unit
+    val onDeleteClick: (track: HistoryTrackData) -> Unit,
+    val onPlayClick: (track: HistoryTrackData) -> Unit
 ) :
     RecyclerView.Adapter<TracksHistoryListAdapter.ViewHolder>() {
     var tracksList = listOf<HistoryTrackData>()
+    var currentTrack: String? = null
+    var isPlaying = false
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = TracksHistoryListItemBinding.bind(view)
 
-        fun bind(track: HistoryTrackData, onTrackClick: (track: HistoryTrackData) -> Unit) = with(binding) {
-            Glide.with(itemView)
-                .load(getCoverUrl(track.id))
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.logo.toDrawable()) // Placeholder image
-                        .error(R.drawable.logo.toDrawable()) // Error image in case of loading failure
-                )
-                .into(trackCover)
+        fun bind(
+            track: HistoryTrackData,
+            onDeleteClick: (track: HistoryTrackData) -> Unit,
+            onPlayClick: (track: HistoryTrackData) -> Unit,
+            currentTrackId: String?,
+            isPlaying: Boolean
+        ) =
+            with(binding) {
+                Glide.with(itemView)
+                    .load(getCoverUrl(track.id))
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.logo.toDrawable()) // Placeholder image
+                            .error(R.drawable.logo.toDrawable()) // Error image in case of loading failure
+                    )
+                    .into(trackCover)
 
-            artist.text = track.artist
-            trackName.text = track.name
-            deleteTrack.setOnClickListener { onTrackClick(track) }
-        }
+                artist.text = track.artist
+                trackName.text = track.name
+                deleteTrack.setOnClickListener { onDeleteClick(track) }
+
+                trackCover.setOnClickListener { onPlayClick(track) }
+
+                if (currentTrackId != track.id) return
+
+                trackCover.setImageResource(
+                    if (isPlaying) R.drawable.pause else R.drawable.play
+                )
+            }
 
 
     }
@@ -70,10 +87,10 @@ class TracksHistoryListAdapter(
     override fun getItemCount(): Int = tracksList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(tracksList[position], onTrackClick)
+        holder.bind(tracksList[position], onDeleteClick, onPlayClick, currentTrack, isPlaying)
     }
 
-    fun deleteTrack(elem : HistoryTrackData) {
+    fun deleteTrack(elem: HistoryTrackData) {
         val new_list = tracksList.toMutableList()
         new_list.removeAt(new_list.indexOf(elem))
         setHistory(new_list)
@@ -82,6 +99,18 @@ class TracksHistoryListAdapter(
     @SuppressLint("NotifyDataSetChanged")
     fun setHistory(newList: List<HistoryTrackData>) {
         tracksList = newList
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setCurrentTrackId(id: String?) {
+        currentTrack = id
+        notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setPlayStatus(value: PlayStatus) {
+        isPlaying = value == PlayStatus.Play
         notifyDataSetChanged()
     }
 }

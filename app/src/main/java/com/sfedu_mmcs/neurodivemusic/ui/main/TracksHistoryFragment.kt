@@ -16,18 +16,29 @@ import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentTracksHistrotyBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.HistoryViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 
 
 class TracksHistoryFragment : Fragment() {
     private lateinit var binding: FragmentTracksHistrotyBinding
     private val historyViewModel: HistoryViewModel by activityViewModels()
-    private val historyListAdapter = TracksHistoryListAdapter {
-        showDialog(it)
-    }
+    private val musicViewMode: MusicViewModel by activityViewModels()
+
+    private val historyListAdapter = TracksHistoryListAdapter({ track ->
+        showDialog(track)
+    }, { track ->
+        if (musicViewMode.currentTrack.value?.id == track.id) {
+            musicViewMode.togglePlay()
+        } else {
+            musicViewMode.playTrack(track.id)
+        }
+
+    })
 
     val historyListObserver = Observer<List<HistoryTrackData>> {
         historyListAdapter.setHistory(it)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +67,13 @@ class TracksHistoryFragment : Fragment() {
             )
         }!!)
         binding.tracksHistoryList.addItemDecoration(itemDecorator)
+
+        musicViewMode.status.observe(viewLifecycleOwner) { it ->
+            historyListAdapter.setPlayStatus(it)
+        }
+        musicViewMode.currentTrack.observe(viewLifecycleOwner) { it ->
+            historyListAdapter.setCurrentTrackId(it?.id)
+        }
     }
 
     fun showDialog(trackData: HistoryTrackData) {

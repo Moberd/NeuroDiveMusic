@@ -108,5 +108,12 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
         val json = gson.toJson(history)
         //sharedPreferences.edit().putString(StorageKeys.tracks, json).apply()
     }
+
+    fun getTrack(id: String): TrackData? {
+        val track = tracksList.find { it -> it.id == id }
+        lastId = id
+
+        return track
+    }
 }
 
