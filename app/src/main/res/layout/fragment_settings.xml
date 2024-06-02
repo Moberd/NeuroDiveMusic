@@ -29,6 +29,7 @@
             android:textSize="@dimen/text.main.m" />
 
         <LinearLayout
+            android:id="@+id/genres_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/indent.s"
@@ -52,6 +53,7 @@
                     android:textSize="@dimen/text.main.s" />
 
                 <CheckBox
+                    android:id="@+id/rock"
                     android:layout_width="@dimen/indent.xl"
                     android:layout_height="@dimen/indent.xl"
                     android:checked="true" />
@@ -73,6 +75,7 @@
                     android:textSize="@dimen/text.main.s" />
 
                 <CheckBox
+                    android:id="@+id/pop"
                     android:layout_width="@dimen/indent.xl"
                     android:layout_height="@dimen/indent.xl"
                     android:checked="true" />
@@ -94,6 +97,7 @@
                     android:textSize="@dimen/text.main.s" />
 
                 <CheckBox
+                    android:id="@+id/jazz"
                     android:layout_width="@dimen/indent.xl"
                     android:layout_height="@dimen/indent.xl"
                     android:checked="true" />
@@ -110,11 +114,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/indent.s"
                     android:layout_weight="1"
-                    android:text="Латино Американская музыка "
+                    android:text="Латино Американская музыка"
                     android:textColor="@color/text_primary"
                     android:textSize="@dimen/text.main.s" />
 
                 <CheckBox
+                    android:id="@+id/latino"
                     android:layout_width="@dimen/indent.xl"
                     android:layout_height="@dimen/indent.xl"
                     android:checked="true" />
@@ -136,6 +141,7 @@
                     android:textSize="@dimen/text.main.s" />
 
                 <CheckBox
+                    android:id="@+id/ambient"
                     android:layout_width="@dimen/indent.xl"
                     android:layout_height="@dimen/indent.xl"
                     android:checked="true" />

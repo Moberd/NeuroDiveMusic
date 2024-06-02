@@ -19,6 +19,7 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.history.HistoryViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
+import com.sfedu_mmcs.neurodivemusic.viewmodels.settings.SettingsViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.Emotion
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val trackerViewModel: TrackerViewModel by viewModels()
     private val musicModel: MusicViewModel by viewModels()
+    private val settingsModel: SettingsViewModel by viewModels()
     private val historyModel: HistoryViewModel by viewModels()
 
     lateinit var navController: NavController
@@ -91,7 +93,17 @@ class MainActivity : AppCompatActivity() {
             musicModel.next()
         }
 
+        setupSettings()
         setupYouTubePlayer()
+    }
+
+    private fun setupSettings() {
+        // idk whether we should fill preferred genres on startup with data from gist or elsewhere
+        // if so, lets just mock it for now.
+        with(settingsModel) {
+            settingsModel.genresList.add("rock")
+            settingsModel.genresList.add("pop")
+        }
     }
 
     private fun setupYouTubePlayer() {

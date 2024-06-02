@@ -40,7 +40,6 @@ class PlayerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPlayerBinding.inflate(inflater)
-
         return binding.root
     }
 

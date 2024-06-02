@@ -1,12 +1,14 @@
 package com.sfedu_mmcs.neurodivemusic.viewmodels.music
 
 import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.sfedu_mmcs.neurodivemusic.repositories.tracks.TrackRepository
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import com.sfedu_mmcs.neurodivemusic.viewmodels.settings.SettingsViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
