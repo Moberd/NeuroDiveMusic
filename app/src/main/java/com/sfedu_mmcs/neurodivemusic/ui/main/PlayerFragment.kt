@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
@@ -101,7 +100,8 @@ class PlayerFragment : Fragment() {
                     val minutest = (it / 60).toInt()
                     val seconds = it % 60
 
-                    binding.duretion.setText("${minutest.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}")
+                    binding.duretion.text =
+                        getString(R.string.main_player_seekbar_timer, minutest, seconds)
                 }
 
                 currentSecond.observe(viewLifecycleOwner) {
@@ -111,22 +111,29 @@ class PlayerFragment : Fragment() {
                     val minutest = (it / 60).toInt()
                     val seconds = it % 60
 
-                    binding.currentTime.setText("${minutest.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}")
+                    binding.currentTime.text =
+                        getString(R.string.main_player_seekbar_timer, minutest, seconds)
                 }
 
                 seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    var synchronize = false
+
                     override fun onProgressChanged(
                         seekBar: SeekBar?,
                         progress: Int,
                         fromUser: Boolean
                     ) {
+                        if (!synchronize) return
+
                         youTubePlayer.value?.seekTo(progress.toFloat())
                     }
 
                     override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                        synchronize = true
                     }
 
                     override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                        synchronize = false
                     }
 
                 })

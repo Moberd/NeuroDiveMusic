@@ -14,12 +14,17 @@
     <dimen name="indent.xxxl">64dp</dimen>
 
     <dimen name="radii.xxxs">8dp</dimen>
+    <dimen name="radii.xs">16dp</dimen>
 
     <dimen name="text.main.s">18sp</dimen>
     <dimen name="text.main.m">22sp</dimen>
     <dimen name="text.main.l">28sp</dimen>
 
+    <dimen name="text.additional.xs">12sp</dimen>
     <dimen name="text.additional.s">14sp</dimen>
     <dimen name="text.additional.m">16sp</dimen>
     <dimen name="text.additional.l">18sp</dimen>
+
+
+    <dimen name="design_bottom_navigation_height" tools:override="true">60dp</dimen>
 </resources>

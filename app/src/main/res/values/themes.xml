@@ -32,4 +32,25 @@
     </style>
 
 
+    <style name="TypographyCaption">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.additional.xs</item>
+        <item name="android:lineHeight">@dimen/indent.s</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:textViewStyle">@style/TypographyCaption</item>
+        <item name="android:background">@drawable/tabbar_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="itemTextColor">@drawable/nav_bar_colors</item>
+        <item name="itemIconTint">@drawable/nav_bar_colors</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Design.BottomNavigationView</item>
+        <item name="itemIconSize">@dimen/indent.sm</item>
+        <item name="itemTextAppearanceActiveBoldEnabled">false</item>
+    </style>
+
+
 </resources>

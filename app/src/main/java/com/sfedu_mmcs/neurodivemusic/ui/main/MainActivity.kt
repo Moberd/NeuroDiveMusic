@@ -22,7 +22,6 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.Emotion
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.Duration
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -146,12 +145,16 @@ class MainActivity : AppCompatActivity() {
                         currentSecond.value = currentPlayerSecond
                     }
 
-                    override fun onVideoDuration(youTubePlayer: YouTubePlayer, trackDuration: Float) {
-                        duration.value = trackDuration.toInt()
+                    override fun onVideoDuration(
+                        youTubePlayer: YouTubePlayer,
+                        duration: Float
+                    ) {
+                        this@with.duration.value = duration.toInt()
                     }
 
-                    override  fun onVideoId( youTubePlayer:  YouTubePlayer,  videoId: String) {
+                    override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
                         currentSecond.value = 0
+                        duration.value = 0
                         lastSecond = 0;
                     }
                 })

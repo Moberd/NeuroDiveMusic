@@ -88,6 +88,8 @@
                     android:layout_marginTop="@dimen/indent.m"
                     android:max="0"
                     android:min="0"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
                     android:progressTint="@color/text_secondary"
                     android:thumbTint="@color/primary" />
 

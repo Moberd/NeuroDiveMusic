@@ -18,4 +18,6 @@
     <string name="main.tabbar.item.home">Главная</string>
     <string name="main.tabbar.item.favorites">Избранное</string>
     <string name="main.tabbar.item.settings">Настройки</string>
+
+    <string name="main.player.seekbar_timer">%02d:%02d</string>
 </resources>

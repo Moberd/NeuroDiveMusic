@@ -21,22 +21,18 @@
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_navigation" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/cyan_local"/>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottomNavigationView"
-            android:background="@color/black"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/tabbar_menu"
-            app:itemTextColor="@drawable/nav_bar_colors"
-            app:itemIconTint="@drawable/nav_bar_colors"
-            app:itemActiveIndicatorStyle="@style/Widget.Design.BottomNavigationView"
-            app:itemIconSize="@dimen/indent.m"
-            />
+            app:cardCornerRadius="@dimen/radii.xs"
+            app:strokeColor="@color/icon_primary">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigationView"
+                style="@style/Widget.BottomNavigationView"
+                app:menu="@menu/tabbar_menu" />
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
     <ImageView

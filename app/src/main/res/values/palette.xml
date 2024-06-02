@@ -6,13 +6,13 @@
     <color name="dark_aquamarine">#07dfd4</color>
     <color name="light_aquamarine">#85e0dc</color>
 
-    <color name="dark_cyan">#0f1010</color>
+    <color name="dark_cyan">#0E0F0F</color>
     <color name="cyan">#c9cfcf</color>
 
     <color name="darker_grey_blue">#6a95a4</color>
     <color name="sky_blue">#c0d2d8</color>
 
-    <color name="dark_grey_blue">#1d1f20</color>
+    <color name="dark_grey_blue">#1C1E1F</color>
     <color name="light_gray_blue">#c9cdcf</color>
 
     <color name="darker_gray">#1b1d1d</color>
