@@ -32,8 +32,9 @@
     <color name="primary">@color/light_aquamarine</color>
 
     <color name="app_background">@color/cyan</color>
-    <color name="background_primary">@color/light_gray_blue</color>
-    <color name="background_secondary">@color/light_gray</color>
+    <color name="background_primary">@color/cyan</color>
+    <color name="background_secondary">@color/light_gray_blue</color>
+    <color name="background_thirtary">@color/light_gray</color>
 
     <color name="text_primary">@color/dark_aquamarine</color>
     <color name="text_secondary">@color/light_gray</color>
@@ -48,5 +49,5 @@
     <color name="success">@color/primary</color>
     <color name="alert_error">@color/coral</color>
 
-
+    <color name="border_color">#2A373C</color>
 </resources>

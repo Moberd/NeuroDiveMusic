@@ -3,35 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.TracksHistoryFragment"
-    android:background="@color/background_primary">
+    android:background="@color/background_primary"
+    tools:context=".ui.main.TracksHistoryFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/indent.xs">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Избранное"
-                android:textColor="@color/text_primary"
-                android:textSize="@dimen/text.main.l"
-                android:layout_marginStart="@dimen/indent.m"
-                android:layout_marginTop="@dimen/indent.s"
-                />
+        <TextView
+            style="@style/TypographyHeading"
+            android:text="@string/main.favorites.title"
+            android:layout_marginTop="@dimen/indent.xl"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginStart="@dimen/indent.xxs"
-            android:layout_marginEnd="@dimen/indent.xxs"
-            android:layout_marginTop="@dimen/indent.xxs"
             android:id="@+id/tracksHistoryList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/indent.xs"
-            tools:listitem="@layout/tracks_history_list_item"
+            android:layout_marginTop="@dimen/indent.l"
             android:background="@drawable/radius_border"
-            />
+            android:paddingHorizontal="@dimen/indent.xs"
+            android:paddingVertical="@dimen/radii.xxxs"
+            tools:listitem="@layout/tracks_history_list_item" />
 
     </LinearLayout>
 </FrameLayout>
