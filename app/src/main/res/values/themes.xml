@@ -4,6 +4,7 @@
         <item name="android:windowBackground">@drawable/main_background</item>
         <item name="materialButtonStyle">@style/Widget.NeuroDiveMusic.Button</item>
         <item name="android:windowFullscreen">true</item>
+
     </style>
 
     <style name="Base.Theme.NeuroDiveMusic" parent="Base.Light.Theme.NeuroDiveMusic" />
