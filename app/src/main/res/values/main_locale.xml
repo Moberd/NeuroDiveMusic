@@ -22,4 +22,12 @@
     <string name="main.player.seekbar_timer">%02d:%02d</string>
 
     <string name="main.favorites.title">Избранное</string>
+
+    <string name="main.settings.title">Настройки</string>
+    <string name="main.settings.chose_genre">Выбрать жанр</string>
+    <string name="main.settings.rock">Рок</string>
+    <string name="main.settings.jazz">Джаз</string>
+    <string name="main.settings.hip_hop">Хип-хоп</string>
+    <string name="main.settings.latin">Латиноамериканская музыка</string>
+    <string name="main.settings.nature">Звуки природы и шум города</string>
 </resources>

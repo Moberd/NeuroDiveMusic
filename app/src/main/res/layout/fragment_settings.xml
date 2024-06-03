@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,142 +9,115 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/indent.xs">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/indent.m"
-            android:layout_marginTop="@dimen/indent.xxl"
-            android:text="Настройки"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/text.main.l" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/indent.s"
+            style="@style/TypographyHeading"
             android:layout_marginTop="@dimen/indent.xl"
-            android:text="Выбрать жанр"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/text.main.m" />
+            android:text="@string/main.settings.title" />
+
+        <TextView
+            style="@style/TypographySubtitleS"
+            android:layout_marginTop="@dimen/indent.sxl"
+            android:text="@string/main.settings.chose_genre" />
 
         <LinearLayout
             android:id="@+id/genres_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/indent.s"
-            android:layout_marginTop="@dimen/text.main.s"
-            android:layout_marginEnd="@dimen/indent.s"
+            android:layout_marginTop="@dimen/indent.xs"
             android:background="@drawable/radius_border"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/indent.xs"
+            android:paddingVertical="@dimen/radii.xxxs">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/indent.xxl"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/indent.s"
+                    style="@style/TypographyBodyS"
                     android:layout_weight="1"
-                    android:text="Рок"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text.main.s" />
+                    android:text="@string/main.settings.rock" />
 
                 <CheckBox
                     android:id="@+id/rock"
-                    android:layout_width="@dimen/indent.xl"
-                    android:layout_height="@dimen/indent.xl"
+                    style="@style/Widget.NeuroDiveMusic.Checkbox"
                     android:checked="true" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/indent.xxl"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/indent.s"
+                    style="@style/TypographyBodyS"
                     android:layout_weight="1"
-                    android:text="Поп"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text.main.s" />
+                    android:text="@string/main.settings.hip_hop" />
 
                 <CheckBox
                     android:id="@+id/pop"
-                    android:layout_width="@dimen/indent.xl"
-                    android:layout_height="@dimen/indent.xl"
+                    style="@style/Widget.NeuroDiveMusic.Checkbox"
                     android:checked="true" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/indent.xxl"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/indent.s"
+                    style="@style/TypographyBodyS"
                     android:layout_weight="1"
-                    android:text="Джаз"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text.main.s" />
+                    android:text="@string/main.settings.jazz" />
 
                 <CheckBox
                     android:id="@+id/jazz"
-                    android:layout_width="@dimen/indent.xl"
-                    android:layout_height="@dimen/indent.xl"
+                    style="@style/Widget.NeuroDiveMusic.Checkbox"
                     android:checked="true" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/indent.xxl"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/indent.s"
+                    style="@style/TypographyBodyS"
                     android:layout_weight="1"
-                    android:text="Латино Американская музыка"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text.main.s" />
+                    android:text="@string/main.settings.latin" />
 
                 <CheckBox
                     android:id="@+id/latino"
-                    android:layout_width="@dimen/indent.xl"
-                    android:layout_height="@dimen/indent.xl"
+                    style="@style/Widget.NeuroDiveMusic.Checkbox"
                     android:checked="true" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/indent.xxl"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/indent.s"
+                    style="@style/TypographyBodyS"
                     android:layout_weight="1"
-                    android:text="Звуки тишины и природы"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/text.main.s" />
+                    android:text="@string/main.settings.nature" />
 
                 <CheckBox
                     android:id="@+id/ambient"
-                    android:layout_width="@dimen/indent.xl"
-                    android:layout_height="@dimen/indent.xl"
+                    style="@style/Widget.NeuroDiveMusic.Checkbox"
                     android:checked="true" />
 
             </LinearLayout>
