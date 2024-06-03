@@ -28,8 +28,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val trackerViewModel: TrackerViewModel by viewModels()
-    private val musicModel: MusicViewModel by viewModels()
     private val settingsModel: SettingsViewModel by viewModels()
+    private val musicModel: MusicViewModel by viewModels()
     private val historyModel: HistoryViewModel by viewModels()
 
     lateinit var navController: NavController
@@ -37,6 +37,10 @@ class MainActivity : AppCompatActivity() {
     var emotions = mutableListOf<Emotion>()
 
     private var statusBeforePhoneLock = PlayStatus.Pause
+
+    private fun playPreferredGenres() {
+        musicModel.next(settingsModel.genresList)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,11 +94,14 @@ class MainActivity : AppCompatActivity() {
         trackerViewModel.skipTrack.observe(this) {
             if (!it) return@observe
 
-            musicModel.next()
+            playPreferredGenres()
         }
 
         setupSettings()
+
         setupYouTubePlayer()
+
+        playPreferredGenres()
     }
 
     private fun setupSettings() {
@@ -141,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
                         if (state == PlayerConstants.PlayerState.PAUSED) setPause()
                         if (state == PlayerConstants.PlayerState.PLAYING) setPlay()
-                        if (state == PlayerConstants.PlayerState.ENDED) next()
+                        if (state == PlayerConstants.PlayerState.ENDED) playPreferredGenres()
                     }
 
                     override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {

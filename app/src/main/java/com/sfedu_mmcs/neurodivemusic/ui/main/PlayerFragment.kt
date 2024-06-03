@@ -23,6 +23,7 @@ import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentPlayerBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
+import com.sfedu_mmcs.neurodivemusic.viewmodels.settings.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,6 +32,7 @@ class PlayerFragment : Fragment() {
     private lateinit var navController: NavController
 
     private val musicModel: MusicViewModel by activityViewModels()
+    private val settingsModel: SettingsViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -138,7 +140,7 @@ class PlayerFragment : Fragment() {
                 })
 
 
-                playNext.setOnClickListener { next() }
+                playNext.setOnClickListener { next(settingsModel.genresList) }
                 playPrevious.setOnClickListener { prev() }
                 togglePlay.setOnClickListener { togglePlay() }
             }

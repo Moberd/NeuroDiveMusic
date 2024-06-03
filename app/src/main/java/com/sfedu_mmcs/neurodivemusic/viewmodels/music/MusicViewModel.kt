@@ -1,7 +1,6 @@
 package com.sfedu_mmcs.neurodivemusic.viewmodels.music
 
 import android.util.Log
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -16,7 +15,8 @@ var index = 0
 
 @HiltViewModel
 class MusicViewModel @Inject constructor(
-    private val trackRepository: TrackRepository
+    private val trackRepository: TrackRepository,
+//    private val settingsViewModel: SettingsViewModel,
 ) : ViewModel() {
     private var trackQueue = mutableListOf<TrackData>()
     private var trackQueueIndex = 0
@@ -32,12 +32,13 @@ class MusicViewModel @Inject constructor(
 
     val trackChange = MutableLiveData<Pair<TrackData?, TrackData>?>()
 
-    fun next() {
+    fun next(genres: List<String>? = null) {
         Log.i("123", "next start $trackQueueIndex")
         Log.i("123", "next start ${trackQueue.size}")
+
         val nextTrack =
             if (trackQueueIndex < trackQueue.size - 1) trackQueue[trackQueueIndex + 1]
-            else trackRepository.getNextTrack()
+            else trackRepository.getNextTrack(genres)
 
         trackQueueIndex += 1
 
@@ -95,7 +96,7 @@ class MusicViewModel @Inject constructor(
         status.value = PlayStatus.Pause
     }
 
-    init {
+/*  init {
         next()
-    }
+    }*/
 }

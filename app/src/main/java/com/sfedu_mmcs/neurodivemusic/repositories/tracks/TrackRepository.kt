@@ -69,8 +69,17 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
     }
 
 
-    fun getNextTrack(): TrackData {
-        val restList = tracksList.filter { it.id != lastId }
+    fun getNextTrack(genres: List<String>? = null): TrackData {
+        Log.d("TrackRepository", "genres filters: [${genres?.joinToString(", ")}]")
+
+        val restList = if (!genres.isNullOrEmpty()) {
+            tracksList.filter { it.id != lastId && genres.contains(it.genre) }
+        } else {
+            tracksList.filter { it.id != lastId }
+        }
+        Log.d("TrackRepository", "restList: [${restList.joinToString(", ")}]")
+
+        // TODO: consider case when rest list is empty. random() will throw exception
         val newTrack = restList[(restList.indices).random()]
         lastId = newTrack.id
 
