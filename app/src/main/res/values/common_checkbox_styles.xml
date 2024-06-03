@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.NeuroDiveMusic.Checkbox" parent="Widget.Material3.CompoundButton.CheckBox">
+        <item name="android:layout_width">@dimen/indent.sxl</item>
+        <item name="android:layout_height">@dimen/indent.sxl</item>
+        <item name="buttonTint">@color/button_background_primary</item>
+        <item name="buttonIconTint">@color/static_white</item>
+        <item name="android:textColor">@color/button_background_text</item>
+    </style>
+</resources>
