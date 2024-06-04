@@ -20,20 +20,13 @@
             android:layout_weight="1"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main_navigation"
-            tools:layout="@layout/fragment_settings"/>
+            tools:layout="@layout/fragment_settings" />
 
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/radii.xs"
-            app:strokeColor="@color/icon_primary">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                style="@style/Widget.BottomNavigationView"
-                app:menu="@menu/tabbar_menu" />
-        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            style="@style/Widget.BottomNavigationView"
+            app:menu="@menu/tabbar_menu" />
     </LinearLayout>
 
     <ImageView
