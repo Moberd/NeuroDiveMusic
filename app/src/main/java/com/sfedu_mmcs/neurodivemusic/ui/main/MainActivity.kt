@@ -67,14 +67,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         trackerViewModel.addTrackToFavorite.observe(this) {
-            if (!it || musicModel.currentTrack.value?.isFavorite == true) return@observe
+            if (!it || musicModel.currentTrack.value?.isFavorite == true || musicModel.status.value == PlayStatus.Pause) return@observe
 
             musicModel.addCurrentTrackToFavorites()
             showLikeIcon()
         }
 
         trackerViewModel.skipTrack.observe(this) {
-            if (!it) return@observe
+            if (!it || musicModel.status.value == PlayStatus.Pause) return@observe
 
             playPreferredGenres()
         }
