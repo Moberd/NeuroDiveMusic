@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/indent.xxxl"
+    android:padding="@dimen/indent.xs"
     tools:context=".ui.calibrate.TrackerSelectFragment">
 
     <LinearLayout
@@ -18,22 +18,23 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:contentDescription="@string/calibration.description.logo"
-            android:src="@drawable/neuro_dive_logo" />
+            android:src="@drawable/logo" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/trackersList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginTop="@dimen/indent.l"
             android:layout_weight="1"
-            tools:itemCount="8"
+            android:background="@drawable/radius_border"
+            android:paddingHorizontal="@dimen/indent.xs"
+            android:paddingVertical="@dimen/radii.xxxs"
             tools:listitem="@layout/tracker_list_item" />
 
         <Button
             android:id="@+id/calibrateButton"
+            style="@style/Widget.NeuroDiveMusic.Button"
             android:layout_marginTop="@dimen/indent.xs"
-            android:text="@string/calibration.text.calibrate_button"
-            android:textAllCaps="true"
-            android:textSize="@dimen/text.main.l"
-            style="@style/Widget.NeuroDiveMusic.Button"/>
+            android:text="@string/calibration.text.calibrate_button" />
     </LinearLayout>
 </FrameLayout>
