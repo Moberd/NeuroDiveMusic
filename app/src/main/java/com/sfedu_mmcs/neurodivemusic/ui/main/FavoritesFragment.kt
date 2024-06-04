@@ -13,19 +13,16 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sfedu_mmcs.neurodivemusic.R
-import com.sfedu_mmcs.neurodivemusic.databinding.FavoritesListItemBinding
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentFavoritesBinding
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.HistoryViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 
 
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
-    private val historyViewModel: HistoryViewModel by activityViewModels()
     private val musicViewMode: MusicViewModel by activityViewModels()
 
-    private val historyListAdapter = FavoritesListAdapter({ track ->
+    private val favoritesListAdapter = FavoritesListAdapter({ track ->
         showDialog(track)
     }, { track ->
         if (musicViewMode.currentTrack.value?.id == track.id) {
@@ -36,8 +33,8 @@ class FavoritesFragment : Fragment() {
 
     })
 
-    val historyListObserver = Observer<List<TrackData>> {
-        historyListAdapter.setFavorites(it)
+    val favoritesObserver = Observer<List<TrackData>> {
+        favoritesListAdapter.setFavorites(it)
     }
 
 
@@ -54,10 +51,10 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        musicViewMode.favorites.observe(viewLifecycleOwner, historyListObserver)
+        musicViewMode.favorites.observe(viewLifecycleOwner, favoritesObserver)
 
         binding.tracksHistoryList.apply {
-            adapter = historyListAdapter
+            adapter = favoritesListAdapter
             layoutManager = LinearLayoutManager(this@FavoritesFragment.context)
         }
         val itemDecorator = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -70,10 +67,10 @@ class FavoritesFragment : Fragment() {
         binding.tracksHistoryList.addItemDecoration(itemDecorator)
 
         musicViewMode.status.observe(viewLifecycleOwner) { it ->
-            historyListAdapter.setPlayStatus(it)
+            favoritesListAdapter.setPlayStatus(it)
         }
         musicViewMode.currentTrack.observe(viewLifecycleOwner) { it ->
-            historyListAdapter.setCurrentTrackId(it?.id)
+            favoritesListAdapter.setCurrentTrackId(it?.id)
         }
     }
 
@@ -84,7 +81,7 @@ class FavoritesFragment : Fragment() {
         val dialog = builder.create()
         val posButton = customView.findViewById<Button>(R.id.tv2)
         posButton.setOnClickListener {
-            historyListAdapter.deleteTrack(trackData)
+            favoritesListAdapter.deleteTrack(trackData)
             musicViewMode.removeFromFavorites(trackData.id)
             dialog.dismiss()
         }

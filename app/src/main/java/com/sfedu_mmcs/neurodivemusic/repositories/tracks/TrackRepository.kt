@@ -1,23 +1,16 @@
 package com.sfedu_mmcs.neurodivemusic.repositories.tracks
 
-import android.R.attr.data
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sfedu_mmcs.neurodivemusic.constants.getTracksUrl
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
 import java.net.URL
 import javax.inject.Inject
 

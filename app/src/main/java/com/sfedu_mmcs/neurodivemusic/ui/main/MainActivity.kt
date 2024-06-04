@@ -16,8 +16,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.ActivityMainBinding
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.HistoryViewModel
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
 import com.sfedu_mmcs.neurodivemusic.viewmodels.settings.SettingsViewModel
@@ -31,7 +29,6 @@ class MainActivity : AppCompatActivity() {
     private val trackerViewModel: TrackerViewModel by viewModels()
     private val settingsModel: SettingsViewModel by viewModels()
     private val musicModel: MusicViewModel by viewModels()
-    private val historyModel: HistoryViewModel by viewModels()
 
     lateinit var navController: NavController
 
@@ -54,33 +51,23 @@ class MainActivity : AppCompatActivity() {
 
         navController = navHostFragment.navController
 
-        val appBarConfiguration = AppBarConfiguration(
-            navController.graph
-        )
-
         binding.bottomNavigationView.setupWithNavController(navController)
 
         setContentView(binding.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-//        trackerViewModel.calibrated.observe(this) {
-//            if (it) return@observe
-//            val action = PlayerFragmentDirections.actionPlayerFragmentToCalibrateActivity()
-//            navController.navigate(action)
-//        }
+        trackerViewModel.calibrated.observe(this) {
+            if (it) return@observe
+            val action = PlayerFragmentDirections.actionPlayerFragmentToCalibrateActivity()
+            navController.navigate(action)
+        }
 
         musicModel.trackChange.observe(this) {
             emotions = mutableListOf()
         }
 
         trackerViewModel.addTrackToFavorite.observe(this) {
-            Log.i("123.addTrackToFavorite", it.toString())
-        }
-
-        trackerViewModel.addTrackToFavorite.observe(this) {
-            Log.i("123.Like", it.toString())
             if (!it || musicModel.currentTrack.value?.isFavorite == true) return@observe
-            Log.i("123.Like", "show like")
 
             musicModel.addCurrentTrackToFavorites()
             showLikeIcon()

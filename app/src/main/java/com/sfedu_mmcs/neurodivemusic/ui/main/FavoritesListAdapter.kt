@@ -13,14 +13,14 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.sfedu_mmcs.neurodivemusic.R
+import com.sfedu_mmcs.neurodivemusic.constants.getCoverUrl
 import com.sfedu_mmcs.neurodivemusic.databinding.FavoritesListItemBinding
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
-import com.sfedu_mmcs.neurodivemusic.R
-import com.sfedu_mmcs.neurodivemusic.constants.getCoverUrl
-import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
-import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 
 @Throws(IOException::class)
 fun drawableFromUrl(url: String?): Drawable? {

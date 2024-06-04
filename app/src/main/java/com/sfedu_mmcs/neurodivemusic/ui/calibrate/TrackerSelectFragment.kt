@@ -1,16 +1,13 @@
 package com.sfedu_mmcs.neurodivemusic.ui.calibrate
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.FragmentTrackerSelectBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.TrackerInfo
