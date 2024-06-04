@@ -14,12 +14,15 @@ var index = 0
 
 @HiltViewModel
 class MusicViewModel @Inject constructor(
-    private val trackRepository: TrackRepository
+    private val trackRepository: TrackRepository,
+//    private val settingsViewModel: SettingsViewModel,
 ) : ViewModel() {
     private var trackQueue = mutableListOf<TrackData>()
     private var trackQueueIndex = 0
 
     val currentTrack = MutableLiveData<TrackData?>(null)
+
+    val favorites = MutableLiveData<List<TrackData>>(emptyList())
 
     val youTubePlayer = MutableLiveData<YouTubePlayer>()
 
@@ -30,12 +33,13 @@ class MusicViewModel @Inject constructor(
 
     val trackChange = MutableLiveData<Pair<TrackData?, TrackData>?>()
 
-    fun next() {
+    fun next(genres: List<String>? = null) {
         Log.i("123", "next start $trackQueueIndex")
         Log.i("123", "next start ${trackQueue.size}")
+
         val nextTrack =
             if (trackQueueIndex < trackQueue.size - 1) trackQueue[trackQueueIndex + 1]
-            else trackRepository.getNextTrack()
+            else trackRepository.getNextTrack(genres)
 
         trackQueueIndex += 1
 
@@ -59,9 +63,23 @@ class MusicViewModel @Inject constructor(
         Log.i("123", "prev end $trackQueueIndex")
     }
 
+    fun playTrack(id: String) {
+        val nextTack = trackRepository.getTrack(id) ?: return
+
+        trackChange.value = Pair(currentTrack.value, nextTack)
+        currentTrack.value = nextTack
+        setPlay()
+
+        trackQueue.clear()
+        trackQueue.add(nextTack)
+    }
+
     fun addCurrentTrackToFavorites() =
         currentTrack.value?.let {
+            Log.i("123.Like.addCurrentTrackToFavorites", "addCurrentTrackToFavorites")
             trackRepository.addToFavorites(it.id)
+
+            favorites.value = trackRepository.fetchFavorites()
 
             trackQueue = trackQueue.map { track ->
                 if (track.id == it.id) track.copy(isFavorite = true) else track
@@ -69,6 +87,18 @@ class MusicViewModel @Inject constructor(
 
             currentTrack.value = it.copy(isFavorite = true)
         }
+
+    fun removeFromFavorites(id: String) {
+        trackRepository.deleteFromFavorites(id)
+
+        trackQueue = trackQueue.map { track ->
+            if (track.id == id) track.copy(isFavorite = false) else track
+        }.toMutableList()
+
+        currentTrack.value = currentTrack.value?.copy(isFavorite = false)
+
+        favorites.value = trackRepository.fetchFavorites()
+    }
 
     fun togglePlay() {
         status.value = if (status.value == PlayStatus.Play) PlayStatus.Pause else PlayStatus.Play
@@ -83,6 +113,6 @@ class MusicViewModel @Inject constructor(
     }
 
     init {
-        next()
+        favorites.value = trackRepository.fetchFavorites()
     }
 }

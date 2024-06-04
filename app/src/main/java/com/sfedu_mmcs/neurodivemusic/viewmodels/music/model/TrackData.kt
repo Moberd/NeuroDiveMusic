@@ -6,5 +6,6 @@ data class TrackData @JvmOverloads constructor(
     val id: String = "",
     val artist: String = "",
     val name: String = "",
+    val genre: String = "",
     val isFavorite: Boolean = false,
 )

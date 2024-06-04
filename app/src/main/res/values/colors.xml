@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#1C1E1F</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="background_black">#17171A</color>
-    <color name="background_gray">#2A373C</color>
-    <color name="text_white">#FFFFFFDE</color>
-    <color name="transparent">#00FFFFFF</color>
+    <!--    -->
 
     <color name="gray020">#F9F9F9</color>
 
     <color name="purple_blue">#7989b5</color>
-    <color name="dark_blue">#274bc8</color>
     <color name="primary_blue">#315efb</color>
     <color name="alternative_blue">#649dff</color>
-    <color name="sky_blue">#9fdfff</color>
     <color name="cyan_local">#07DED2</color>
 
     <color name="carbone">#343b4c</color>
@@ -27,31 +20,34 @@
     <color name="black_060">#7d7d7d</color>
     <color name="black_040">#a8a8a8</color>
     <color name="black_020">#dddddd</color>
-
-    <!--    Background -->
-
-    <color name="background_primary">@color/black</color>
-    <color name="app_background">@color/black</color>
-
-
-    <!--    Text -->
-    <color name="text_static_white">@color/white</color>
-    <color name="text_navy">@color/navy</color>
-    <color name="text_static_black">@color/black</color>
-    <color name="text_primary">@color/black</color>
-
-    <!--    button-->
-    <color name="button_background">@color/primary_blue</color>
-    <color name="light_blue_400">#FF29B6F6</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="gray_400">#FFBDBDBD</color>
-    <color name="gray_600">#FF757575</color>
-
-    <!--    icons-->
-    <color name="icon_primary">@color/cyan_local</color>
-    <color name="icon_sec">@color/navy</color>
-
-<!--    border-->
     <color name="border_primary">@color/light_carbone</color>
     <color name="border_selected">@color/primary_blue</color>
+
+    <!--    -->
+
+    <color name="static_white">@color/white</color>
+    <color name="static_black">@color/black</color>
+    <color name="transparent">#00FFFFFF</color>
+
+    <color name="primary">@color/light_aquamarine</color>
+
+    <color name="app_background">@color/cyan</color>
+    <color name="background_primary">@color/cyan</color>
+    <color name="background_secondary">@color/light_gray_blue</color>
+    <color name="background_thirtary">@color/light_gray</color>
+
+    <color name="text_primary">@color/dark_aquamarine</color>
+    <color name="text_secondary">@color/light_gray</color>
+
+    <color name="icon_primary">@color/sky_blue</color>
+    <color name="icon_active">@color/primary</color>
+
+    <color name="button_background_primary">@color/light_blue</color>
+    <color name="button_background_text">@color/static_white</color>
+
+    <color name="warning">@color/light_golden</color>
+    <color name="success">@color/primary</color>
+    <color name="alert_error">@color/coral</color>
+
+    <color name="border_color">#2A373C</color>
 </resources>

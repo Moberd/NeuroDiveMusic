@@ -5,26 +5,26 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="0dp"
-    android:outlineProvider="bounds"
-    app:strokeWidth="0dp"
-    android:background="@color/background_gray"
-    app:strokeColor="@color/background_gray">
+    app:strokeWidth="0dp">
 
     <LinearLayout
-        android:background="@color/background_gray"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background_secondary"
         android:gravity="center_vertical"
-        android:padding="@dimen/indent.xs">
+        android:paddingTop="@dimen/radii.xs"
+        android:paddingBottom="@dimen/indent.sm">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/trackCover"
             android:layout_width="@dimen/indent.xl"
             android:layout_height="@dimen/indent.xl"
             android:contentDescription="@string/main.description.cover_image"
-            android:scaleType="fitCenter"
-            tools:src="@drawable/logo" />
+            android:scaleType="centerCrop"
+            tools:src="@drawable/logo"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            android:background="@drawable/icon_circle_background"
+            />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -35,33 +35,27 @@
 
             <TextView
                 android:id="@+id/trackName"
-                android:layout_width="wrap_content"
+                style="@style/TypographyBodyS"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:maxLines="1"
-                android:textSize="@dimen/text.main.s"
-                android:textStyle="bold"
                 tools:ignore="NestedWeights"
-                tools:text="Track Name"
-                android:textColor="@color/white"/>
+                tools:text="Track Name" />
 
             <TextView
                 android:id="@+id/artist"
-                android:textColor="@color/navy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TypographySubheadXS"
                 android:maxLines="1"
-                android:textSize="@dimen/text.additional.m"
                 tools:text="Artist" />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/delete_track"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/transparent"
             android:contentDescription="@string/main.description.open_track_info_icon"
             android:padding="@dimen/indent.xxs"
-            android:src="@drawable/baseline_delete_outline_24"
-            android:id="@+id/delete_track"/>
+            android:src="@drawable/baseline_delete_outline_24" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -37,23 +37,21 @@ open class TrackerViewModel : ViewModel() {
             }
 
             if (happyCount > 2) {
-                Log.i("123.1", "too happy")
                 happyCount = 0
                 emitAddToFavorite()
             }
 
             if (sadCount > 2) {
-                Log.i("123.1", "too sad")
                 sadCount = 0
-                emitSkipTrack()
+//                emitSkipTrack()
             }
 
-            Log.i("123.1", "${currentEmotion.value}")
             setCurrentEmotion()
         }, 1000)
     }
 
     private fun emitAddToFavorite() {
+        Log.i("123.Like.emitAddToFavorite", "emitAddToFavorite")
         addTrackToFavorite.value = true
         addTrackToFavorite.value = false
     }
@@ -75,6 +73,14 @@ open class TrackerViewModel : ViewModel() {
                     TrackerInfo("qwerti", "Tracker 6")
                 )
         }, 1500)
+    }
+
+    init {
+        setCurrentEmotion()
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            emitAddToFavorite()
+        }, 6000)
     }
 
     fun calibrate() {

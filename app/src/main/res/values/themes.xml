@@ -4,6 +4,7 @@
         <item name="android:windowBackground">@drawable/main_background</item>
         <item name="materialButtonStyle">@style/Widget.NeuroDiveMusic.Button</item>
         <item name="android:windowFullscreen">true</item>
+
     </style>
 
     <style name="Base.Theme.NeuroDiveMusic" parent="Base.Light.Theme.NeuroDiveMusic" />
@@ -12,6 +13,76 @@
 
     <style name="roundedImageViewRounded">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">50%</item>
+        <item name="cornerSize">@dimen/radii.xxxs</item>
     </style>
+
+    <style name="TypographyHeading">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.main.xl</item>
+        <item name="android:lineHeight">@dimen/indent.l</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TypographySubtitleS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.main.s</item>
+        <item name="android:lineHeight">@dimen/indent.sm</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TypographySubtitleM">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.main.m</item>
+        <item name="android:lineHeight">@dimen/text.main.line_height.m</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TypographySubheadS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.additional.s</item>
+        <item name="android:lineHeight">@dimen/indent.s</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TypographySubheadXS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.additional.s</item>
+        <item name="android:lineHeight">@dimen/indent.xs</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+
+    <style name="TypographyCaption">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.additional.xs</item>
+        <item name="android:lineHeight">@dimen/indent.s</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <style name="TypographyBodyS">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text.additional.m</item>
+        <item name="android:lineHeight">@dimen/indent.sm</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:textViewStyle">@style/TypographyCaption</item>
+        <item name="android:background">@drawable/tabbar_background</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="itemTextColor">@drawable/nav_bar_colors</item>
+        <item name="itemIconTint">@drawable/nav_bar_colors</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Design.BottomNavigationView</item>
+        <item name="itemIconSize">@dimen/indent.sm</item>
+        <item name="itemTextAppearanceActiveBoldEnabled">false</item>
+    </style>
+
 </resources>

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--    background-->
-    <color name="background_primary">@color/carbone</color>
-    <color name="app_background">@color/primary_black</color>
+    <color name="primary">@color/dark_aquamarine</color>
 
-    <!--    text-->
-    <color name="text_primary">@color/white</color>
+    <color name="app_background">@color/dark_cyan</color>
+    <color name="background_primary">@color/dark_cyan</color>
+    <color name="background_secondary">@color/dark_grey_blue</color>
+    <color name="background_thirtary">@color/light_gray</color>
 
-    <!--    button-->
-    <color name="button_background">@color/carbone</color>
+    <color name="text_primary">@color/static_white</color>
+    <color name="text_secondary">@color/darker_grey_blue</color>
 
-    <!--    icons-->
-    <color name="icon_primary">@color/aluminium</color>
+    <color name="icon_primary">@color/darker_grey_blue</color>
 
-    <!--    border-->
-    <color name="border_primary">@color/aluminium</color>
+    <color name="button_background_primary">@color/blue</color>
+
+    <color name="alert_error">@color/dark_coral</color>
+    <color name="warning">@color/golden</color>
+    <color name="success">@color/primary</color>
 </resources>

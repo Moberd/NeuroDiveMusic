@@ -19,24 +19,14 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             app:defaultNavHost="true"
-            app:navGraph="@navigation/main_navigation" />
+            app:navGraph="@navigation/main_navigation"
+            tools:layout="@layout/fragment_settings" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/cyan_local"/>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
-            android:background="@color/black"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/tabbar_menu"
-            app:itemTextColor="@drawable/nav_bar_colors"
-            app:itemIconTint="@drawable/nav_bar_colors"
-            app:itemActiveIndicatorStyle="@style/Widget.Design.BottomNavigationView"
-            app:itemIconSize="@dimen/indent.m"
-            />
+            style="@style/Widget.BottomNavigationView"
+            app:menu="@menu/tabbar_menu" />
     </LinearLayout>
 
     <ImageView
@@ -49,7 +39,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:tint="@color/icon_active" />
 
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView

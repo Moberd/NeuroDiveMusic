@@ -1,11 +1,8 @@
 package com.sfedu_mmcs.neurodivemusic.ui.calibrate
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
-import com.sfedu_mmcs.neurodivemusic.R
+import androidx.appcompat.app.AppCompatActivity
 import com.sfedu_mmcs.neurodivemusic.databinding.ActivityCalibrateBinding
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 

@@ -1,23 +1,16 @@
 package com.sfedu_mmcs.neurodivemusic.repositories.tracks
 
-import android.R.attr.data
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sfedu_mmcs.neurodivemusic.constants.getTracksUrl
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
-import java.io.BufferedReader
-import java.io.InputStream
-import java.io.InputStreamReader
 import java.net.URL
 import javax.inject.Inject
 
@@ -26,6 +19,7 @@ object StorageKeys {
     const val sharedPreferencesKey = "TrackPreferences"
     const val tracks = "tracks"
     const val history = "history"
+    const val favorites = "favorites"
 }
 
 class TrackRepository @Inject constructor(@ApplicationContext private val context: Context) {
@@ -35,7 +29,6 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
     private val gson = Gson()
 
     private var tracksList = getEntities()
-    private var history: List<HistoryTrackData> = emptyList()
 
     private fun saveEntities(tracks: List<TrackData>) {
         val json = gson.toJson(tracks)
@@ -49,11 +42,9 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
         var response = ""
         runBlocking {
             try {
-                withTimeout(5000) {
-                    launch(Dispatchers.IO) {
-                        response = URL(getTracksUrl()).readText()
-                    } // launch
-                } // timeout
+                launch(Dispatchers.IO) {
+                    response = URL(getTracksUrl()).readText()
+                } // launch
             } catch (e: Exception) {  // Timeout, permission, URL or network error
                 response = "Error"   // Here one uses a not valid message
             }
@@ -69,44 +60,82 @@ class TrackRepository @Inject constructor(@ApplicationContext private val contex
     }
 
 
-    fun getNextTrack(): TrackData {
-        val restList = tracksList.filter { it.id != lastId }
+    fun getNextTrack(genres: List<String>? = null): TrackData {
+        Log.d("TrackRepository", "genres filters: [${genres?.joinToString(", ")}]")
+
+        val restList = if (!genres.isNullOrEmpty()) {
+            tracksList.filter { it.id != lastId && genres.contains(it.genre) }
+        } else {
+            tracksList.filter { it.id != lastId }
+        }
+        Log.d("TrackRepository", "restList: [${restList.joinToString(", ")}]")
+
+        // TODO: consider case when rest list is empty. random() will throw exception
         val newTrack = restList[(restList.indices).random()]
         lastId = newTrack.id
 
         return newTrack
     }
+
     fun addToFavorites(id: String) {
-        val newTrackList = tracksList.map { if (it.id == id) it.copy(isFavorite = true) else it }
-        tracksList = newTrackList
-        saveEntities(newTrackList)
+        val json = sharedPreferences.getString(StorageKeys.favorites, null)
+
+        Log.i("123.Json", json.toString())
+        val favorites = if (json != null) {
+            gson.fromJson<MutableList<String>>(
+                json,
+                object : TypeToken<MutableList<String>>() {}.type
+            )
+        } else mutableListOf()
+
+        favorites.add(id)
+
+        sharedPreferences.edit().putString(StorageKeys.favorites, gson.toJson(favorites)).apply()
     }
 
-    fun fetchHistory(): List<HistoryTrackData> {
-        val json = sharedPreferences.getString(StorageKeys.tracks, null)
-
-        history = if (json != null) {
-            gson.fromJson(json, object : TypeToken<List<HistoryTrackData>>() {}.type)
-        } else {
-            emptyList()
-        }
-
-        return history.filter { it.isFavorite }
-    }
 
     fun deleteFromFavorites(id: String) {
-        val newTrackList = tracksList.map { if (it.id == id) it.copy(isFavorite = false) else it }
-        tracksList = newTrackList
-        saveEntities(newTrackList)
+        val json = sharedPreferences.getString(StorageKeys.favorites, null)
+
+        val favorites = if (json != null) {
+            gson.fromJson<MutableList<String>>(
+                json,
+                object : TypeToken<MutableList<String>>() {}.type
+            )
+        } else mutableListOf()
+
+        favorites.remove(id)
+
+        sharedPreferences.edit().putString(StorageKeys.favorites, gson.toJson(favorites)).apply()
     }
 
-    fun sendHistory(track: HistoryTrackData) {
-        val newHistory = history.toMutableList()
-        newHistory.add(track)
-        history = newHistory.toList()
+    fun getTrack(id: String): TrackData? {
+        val track = tracksList.find { it -> it.id == id }
+        lastId = id
 
-        val json = gson.toJson(history)
-        //sharedPreferences.edit().putString(StorageKeys.tracks, json).apply()
+        return track
+    }
+
+    fun fetchFavorites(): List<TrackData> {
+        return runBlocking {
+            val json = sharedPreferences.getString(StorageKeys.favorites, null)
+
+            if (json == null) return@runBlocking emptyList()
+
+            val favorites =
+                gson.fromJson<List<String>>(json, object : TypeToken<List<String>>() {}.type)
+
+            Log.i("123.favorites", json.toString())
+
+            val tracks = getEntities()
+
+            return@runBlocking tracks.filter { track ->
+                val founded = favorites.find { id -> track.id == id }
+
+                return@filter founded != null
+            }
+        }
+
     }
 }
 

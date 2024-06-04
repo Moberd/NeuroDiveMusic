@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_primary"
+    tools:context=".ui.main.FavoritesFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/indent.xs">
+
+        <TextView
+            style="@style/TypographyHeading"
+            android:text="@string/main.favorites.title"
+            android:layout_marginTop="@dimen/indent.xl"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/tracksHistoryList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/indent.l"
+            android:background="@drawable/radius_border"
+            android:paddingHorizontal="@dimen/indent.xs"
+            android:paddingVertical="@dimen/radii.xxxs"
+            tools:listitem="@layout/favorites_list_item" />
+
+    </LinearLayout>
+</FrameLayout>

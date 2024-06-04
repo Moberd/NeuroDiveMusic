@@ -6,26 +6,43 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/indent.xxxs"
-    app:strokeColor="@color/tracker_card_border_color_selector">
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/indent.xs">
+        android:layout_height="match_parent"
+        android:background="@color/background_secondary"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/radii.xs"
+        android:paddingBottom="@dimen/indent.sm">
 
-        <TextView
-            android:id="@+id/trackerName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:maxLines="1"
-            tools:text="Device Name" />
-
-        <TextView
-            android:id="@+id/trackerID"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            tools:text="Device id123" />
+            android:background="@drawable/icon_circle_background"
+            android:padding="@dimen/radii.xxxs"
+            android:src="@drawable/headset"
+            app:tint="@color/icon_color_select" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/indent.xs">
+
+            <TextView
+                android:id="@+id/trackerName"
+                style="@style/TypographyBodyS"
+                android:maxLines="1"
+                android:textColor="@color/tracker_card_title_color_selector"
+                tools:text="Device Name" />
+
+            <TextView
+                android:id="@+id/trackerID"
+                style="@style/TypographySubheadS"
+                android:maxLines="1"
+                tools:text="Device id123"
+                android:layout_marginTop="@dimen/indent.xxxxs"/>
+        </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

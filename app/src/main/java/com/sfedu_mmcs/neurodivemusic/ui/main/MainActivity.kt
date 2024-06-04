@@ -3,6 +3,7 @@ package com.sfedu_mmcs.neurodivemusic.ui.main
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,21 +16,19 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.databinding.ActivityMainBinding
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.HistoryViewModel
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.MusicViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
+import com.sfedu_mmcs.neurodivemusic.viewmodels.settings.SettingsViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.TrackerViewModel
 import com.sfedu_mmcs.neurodivemusic.viewmodels.tracker.model.Emotion
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.Duration
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val trackerViewModel: TrackerViewModel by viewModels()
+    private val settingsModel: SettingsViewModel by viewModels()
     private val musicModel: MusicViewModel by viewModels()
-    private val historyModel: HistoryViewModel by viewModels()
 
     lateinit var navController: NavController
 
@@ -37,7 +36,12 @@ class MainActivity : AppCompatActivity() {
 
     private var statusBeforePhoneLock = PlayStatus.Pause
 
+    private fun playPreferredGenres() {
+        musicModel.next(settingsModel.genresList)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("123", "create main")
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -46,10 +50,6 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
 
         navController = navHostFragment.navController
-
-        val appBarConfiguration = AppBarConfiguration(
-            navController.graph
-        )
 
         binding.bottomNavigationView.setupWithNavController(navController)
 
@@ -63,36 +63,36 @@ class MainActivity : AppCompatActivity() {
         }
 
         musicModel.trackChange.observe(this) {
-            it?.first?.let { track ->
-                if (emotions.isEmpty()) return@let
-
-                with(track) {
-
-                    historyModel.sendHistory(
-                        HistoryTrackData(
-                            id, artist, name, emotions
-                        )
-                    )
-                }
-            }
-
             emotions = mutableListOf()
         }
 
         trackerViewModel.addTrackToFavorite.observe(this) {
-            if (!it || musicModel.currentTrack.value?.isFavorite == true) return@observe
+            if (!it || musicModel.currentTrack.value?.isFavorite == true || musicModel.status.value == PlayStatus.Pause) return@observe
 
             musicModel.addCurrentTrackToFavorites()
             showLikeIcon()
         }
 
         trackerViewModel.skipTrack.observe(this) {
-            if (!it) return@observe
+            if (!it || musicModel.status.value == PlayStatus.Pause) return@observe
 
-            musicModel.next()
+            playPreferredGenres()
         }
 
+        setupSettings()
+
         setupYouTubePlayer()
+
+        playPreferredGenres()
+    }
+
+    private fun setupSettings() {
+        // idk whether we should fill preferred genres on startup with data from gist or elsewhere
+        // if so, lets just mock it for now.
+        with(settingsModel) {
+            settingsModel.genresList.add("rock")
+            settingsModel.genresList.add("pop")
+        }
     }
 
     private fun setupYouTubePlayer() {
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
 
                         if (state == PlayerConstants.PlayerState.PAUSED) setPause()
                         if (state == PlayerConstants.PlayerState.PLAYING) setPlay()
-                        if (state == PlayerConstants.PlayerState.ENDED) next()
+                        if (state == PlayerConstants.PlayerState.ENDED) playPreferredGenres()
                     }
 
                     override fun onCurrentSecond(youTubePlayer: YouTubePlayer, second: Float) {
@@ -146,12 +146,16 @@ class MainActivity : AppCompatActivity() {
                         currentSecond.value = currentPlayerSecond
                     }
 
-                    override fun onVideoDuration(youTubePlayer: YouTubePlayer, trackDuration: Float) {
-                        duration.value = trackDuration.toInt()
+                    override fun onVideoDuration(
+                        youTubePlayer: YouTubePlayer,
+                        duration: Float
+                    ) {
+                        this@with.duration.value = duration.toInt()
                     }
 
-                    override  fun onVideoId( youTubePlayer:  YouTubePlayer,  videoId: String) {
+                    override fun onVideoId(youTubePlayer: YouTubePlayer, videoId: String) {
                         currentSecond.value = 0
+                        duration.value = 0
                         lastSecond = 0;
                     }
                 })

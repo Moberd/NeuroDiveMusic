@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Widget.NeuroDiveMusic.Button" parent="Widget.Material3.Button">
-        <item name="android:backgroundTint">@color/button_background</item>
-        <item name="android:textColor">@color/text_static_white</item>
+        <item name="android:backgroundTint">@color/button_background_primary</item>
+        <item name="android:textColor">@color/button_background_text</item>
+        <item name="cornerRadius">@dimen/radii.xxxs</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingVertical">@dimen/indent.xxs</item>
+        <item name="android:textViewStyle">@style/TypographyBodyS</item>
     </style>
 </resources>
