@@ -19,26 +19,5 @@ class HistoryViewModel @Inject constructor(
 ) : ViewModel() {
     val historyList = MutableLiveData<List<HistoryTrackData>>(emptyList())
 
-    fun sendHistory(track: HistoryTrackData) {
-        trackRepository.sendHistory(track)
 
-        val newList = historyList.value?.toMutableList()
-
-        newList?.add(track)
-        historyList.value = newList?.toList()
-    }
-
-    fun deleteFromHistory(track: HistoryTrackData) {
-        trackRepository.deleteFromFavorites(track.id)
-
-        historyList.value = historyList.value?.filter {
-            it.id != track.id
-        }
-    }
-
-    init {
-        Handler(Looper.getMainLooper()).postDelayed({
-            historyList.value = trackRepository.fetchHistory()
-        }, 1000)
-    }
 }

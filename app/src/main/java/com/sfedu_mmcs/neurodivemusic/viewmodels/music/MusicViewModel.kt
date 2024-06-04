@@ -23,6 +23,8 @@ class MusicViewModel @Inject constructor(
 
     val currentTrack = MutableLiveData<TrackData?>(null)
 
+    val favorites = MutableLiveData<List<TrackData>>(emptyList())
+
     val youTubePlayer = MutableLiveData<YouTubePlayer>()
 
     val currentSecond = MutableLiveData<Int>(0)
@@ -75,7 +77,10 @@ class MusicViewModel @Inject constructor(
 
     fun addCurrentTrackToFavorites() =
         currentTrack.value?.let {
+            Log.i("123.Like.addCurrentTrackToFavorites", "addCurrentTrackToFavorites")
             trackRepository.addToFavorites(it.id)
+
+            favorites.value = trackRepository.fetchFavorites()
 
             trackQueue = trackQueue.map { track ->
                 if (track.id == it.id) track.copy(isFavorite = true) else track
@@ -83,6 +88,18 @@ class MusicViewModel @Inject constructor(
 
             currentTrack.value = it.copy(isFavorite = true)
         }
+
+    fun removeFromFavorites(id: String) {
+        trackRepository.deleteFromFavorites(id)
+
+        trackQueue = trackQueue.map { track ->
+            if (track.id == id) track.copy(isFavorite = false) else track
+        }.toMutableList()
+
+        currentTrack.value = currentTrack.value?.copy(isFavorite = false)
+
+        favorites.value = trackRepository.fetchFavorites()
+    }
 
     fun togglePlay() {
         status.value = if (status.value == PlayStatus.Play) PlayStatus.Pause else PlayStatus.Play
@@ -96,7 +113,7 @@ class MusicViewModel @Inject constructor(
         status.value = PlayStatus.Pause
     }
 
-/*  init {
-        next()
-    }*/
+    init {
+        favorites.value = trackRepository.fetchFavorites()
+    }
 }

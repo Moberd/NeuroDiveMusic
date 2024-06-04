@@ -16,9 +16,9 @@
     </fragment>
     <fragment
         android:id="@+id/mainNavigation_tracksHistoryFragment"
-        android:name="com.sfedu_mmcs.neurodivemusic.ui.main.TracksHistoryFragment"
+        android:name="com.sfedu_mmcs.neurodivemusic.ui.main.FavoritesFragment"
         android:label="@string/main.label.history"
-        tools:layout="@layout/fragment_tracks_histroty">
+        tools:layout="@layout/fragment_favorites">
         <action
             android:id="@+id/action_tracksHistoryFragment_to_trackInfoFragment"
             app:destination="@id/mainNavigation_trackInfoFragment" />

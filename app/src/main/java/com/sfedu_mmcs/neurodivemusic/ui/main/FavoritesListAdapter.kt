@@ -13,14 +13,14 @@ import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.sfedu_mmcs.neurodivemusic.databinding.TracksHistoryListItemBinding
+import com.sfedu_mmcs.neurodivemusic.databinding.FavoritesListItemBinding
 import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 import com.sfedu_mmcs.neurodivemusic.R
 import com.sfedu_mmcs.neurodivemusic.constants.getCoverUrl
-import com.sfedu_mmcs.neurodivemusic.viewmodels.history.model.HistoryTrackData
 import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.PlayStatus
+import com.sfedu_mmcs.neurodivemusic.viewmodels.music.model.TrackData
 
 @Throws(IOException::class)
 fun drawableFromUrl(url: String?): Drawable? {
@@ -32,22 +32,22 @@ fun drawableFromUrl(url: String?): Drawable? {
     return BitmapDrawable(Resources.getSystem(), x)
 }
 
-class TracksHistoryListAdapter(
-    val onDeleteClick: (track: HistoryTrackData) -> Unit,
-    val onPlayClick: (track: HistoryTrackData) -> Unit
+class FavoritesListAdapter(
+    val onDeleteClick: (track: TrackData) -> Unit,
+    val onPlayClick: (track: TrackData) -> Unit
 ) :
-    RecyclerView.Adapter<TracksHistoryListAdapter.ViewHolder>() {
-    var tracksList = listOf<HistoryTrackData>()
+    RecyclerView.Adapter<FavoritesListAdapter.ViewHolder>() {
+    var tracksList = listOf<TrackData>()
     var currentTrack: String? = null
     var isPlaying = false
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding = TracksHistoryListItemBinding.bind(view)
+        private val binding = FavoritesListItemBinding.bind(view)
 
         fun bind(
-            track: HistoryTrackData,
-            onDeleteClick: (track: HistoryTrackData) -> Unit,
-            onPlayClick: (track: HistoryTrackData) -> Unit,
+            track: TrackData,
+            onDeleteClick: (track: TrackData) -> Unit,
+            onPlayClick: (track: TrackData) -> Unit,
             currentTrackId: String?,
             isPlaying: Boolean
         ) =
@@ -79,7 +79,7 @@ class TracksHistoryListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.tracks_history_list_item, parent, false)
+            .inflate(R.layout.favorites_list_item, parent, false)
 
         return ViewHolder(view)
     }
@@ -90,14 +90,14 @@ class TracksHistoryListAdapter(
         holder.bind(tracksList[position], onDeleteClick, onPlayClick, currentTrack, isPlaying)
     }
 
-    fun deleteTrack(elem: HistoryTrackData) {
+    fun deleteTrack(elem: TrackData) {
         val new_list = tracksList.toMutableList()
         new_list.removeAt(new_list.indexOf(elem))
-        setHistory(new_list)
+        setFavorites(new_list)
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setHistory(newList: List<HistoryTrackData>) {
+    fun setFavorites(newList: List<TrackData>) {
         tracksList = newList
         notifyDataSetChanged()
     }

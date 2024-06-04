@@ -3,6 +3,7 @@ package com.sfedu_mmcs.neurodivemusic.ui.main
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.i("123", "create main")
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,31 +63,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        trackerViewModel.calibrated.observe(this) {
-            if (it) return@observe
-            val action = PlayerFragmentDirections.actionPlayerFragmentToCalibrateActivity()
-            navController.navigate(action)
-        }
+//        trackerViewModel.calibrated.observe(this) {
+//            if (it) return@observe
+//            val action = PlayerFragmentDirections.actionPlayerFragmentToCalibrateActivity()
+//            navController.navigate(action)
+//        }
 
         musicModel.trackChange.observe(this) {
-            it?.first?.let { track ->
-                if (emotions.isEmpty()) return@let
-
-                with(track) {
-
-                    historyModel.sendHistory(
-                        HistoryTrackData(
-                            id, artist, name, emotions
-                        )
-                    )
-                }
-            }
-
             emotions = mutableListOf()
         }
 
         trackerViewModel.addTrackToFavorite.observe(this) {
+            Log.i("123.addTrackToFavorite", it.toString())
+        }
+
+        trackerViewModel.addTrackToFavorite.observe(this) {
+            Log.i("123.Like", it.toString())
             if (!it || musicModel.currentTrack.value?.isFavorite == true) return@observe
+            Log.i("123.Like", "show like")
 
             musicModel.addCurrentTrackToFavorites()
             showLikeIcon()
